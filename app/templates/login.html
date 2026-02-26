@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}Login | Smart Canteen Management{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="login-shell">
+
+    <div class="login-card">
+
+        <!-- LEFT PANEL -->
+        <div class="login-left">
+            <h2>Hello Admin!</h2>
+            <p>Log in to your administrative account</p>
+
+            <form method="POST" autocomplete="on">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <label for="email">Email</label>
+                <input
+                    id="email"
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+                <label for="loginPassword">Password</label>
+                <div class="password-wrapper">
+                    <input
+                        id="loginPassword"
+                        type="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        onclick="togglePassword(event)"
+                        aria-label="Toggle password visibility"
+                    >
+                        Show
+                    </button>
+                </div>
+
+                <button type="submit" class="login-submit">
+                    LOG IN
+                </button>
+            </form>
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="login-right">
+            <div class="right-top">
+                <h1>Welcome Back!</h1>
+            </div>
+
+            <div class="right-middle">
+                <p>
+                    Manage orders, inventory, and administrative controls
+                    from your centralized command panel.
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function togglePassword(e) {
+    e.preventDefault();
+
+    const input = document.getElementById("loginPassword");
+    const button = e.target;
+
+    if (!input) return;
+
+    if (input.type === "password") {
+        input.type = "text";
+        button.innerText = "Hide";
+    } else {
+        input.type = "password";
+        button.innerText = "Show";
+    }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>{% block title %}Smart Canteen{% endblock %}</title>
+
+    <!-- Responsive Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Global CSS (optional if you create one) -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Page Specific CSS -->
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+
+    <!-- Main Page Content -->
+    {% block content %}
+    {% endblock %}
+
+    <!-- Global JS (optional) -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <!-- Page Specific JS -->
+    {% block extra_js %}{% endblock %}
+
+</body>
+</html>

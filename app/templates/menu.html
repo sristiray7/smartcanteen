@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Our Menu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+</head>
+<body>
+
+<h1 class="menu-title">Our Menu</h1>
+
+<!-- Category Filter -->
+<div class="category-filter">
+    <button class="filter-btn" data-category="all">All</button>
+    <button class="filter-btn" data-category="Beverages">Beverages</button>
+    <button class="filter-btn" data-category="Snacks">Snacks</button>
+    <button class="filter-btn" data-category="Street Food">Street Food</button>
+    <button class="filter-btn" data-category="Veg">Veg</button>
+    <button class="filter-btn" data-category="Non-Veg">Non-Veg</button>
+    <button class="filter-btn" data-category="South Indian Thali">South Indian Thali</button>
+    <button class="filter-btn" data-category="Biryani">Biryani</button>
+    <button class="filter-btn" data-category="chinese">Chinese</button>
+    <button class="filter-btn" data-category="Thali House">Thali House</button>
+    <button class="filter-btn" data-category="Healthy Corner">Healthy Corner</button>
+    <button class="filter-btn" data-category="Desserts & Sweets & Icecreams">Desserts & Sweets & Icecreams</button>
+    <button class="filter-btn" data-category="Student Combo">Student Combo</button>
+
+
+</div>
+
+<!-- Menu Items -->
+<div class="menu-container">
+
+
+<div class="menu-card" data-category="Beverages">
+        <img src="{{ url_for('static', filename='assets/images/Coffee.jpg') }}">
+        <h3>Coffee</h3>
+        <p>₹40</p>
+        <button class="buy-btn">Buy Now</button>
+    </div>
+
+<div class="menu-card" data-category="Beverages">
+        <img src="{{ url_for('static', filename='assets/images/Cold Coffee.jpg') }}">
+        <h3>Cold Coffee</h3>
+        <p>₹100</p>
+        <button class="buy-btn">Buy Now</button>
+    </div>
+
+<div class="menu-card" data-category="Beverages">
+        <img src="{{ url_for('static', filename='assets/images/Classic Milk Tea.jpeg') }}">
+        <h3>Classic Milk Tea</h3>
+        <p>₹25</p>
+        <button class="buy-btn">Buy Now</button>
+    </div>                                
+    
+<div class="menu-card" data-category="Beverages">
+        <img src="{{ url_for('static', filename='assets/images/Mango Juice.jpeg') }}">
+        <h3>Mango Juice</h3>
+        <p>₹75</p>
+        <button class="buy-btn">Buy Now</button>
+    </div>
+    
+<div class="menu-card" data-category="Beverages">
+        <img src="{{ url_for('static', filename='assets/images/Watermelon juice.jpeg') }}">
+        <h3>Watermelon juice</h3>
+        <p>₹65</p>
+        <button class="buy-btn">Buy Now</button>
+    </div>
+
+
+
+    
+
+    <div class="menu-card" data-category="nonveg thali">
+        <img src="{{ url_for('static', filename='assets/images/chcikenthali.jpeg') }}">
+        <h3>Chicken Thali</h3>
+        <p>₹250</p>
+        <button class="buy-btn">Buy Now</button>
+    </div>
+    <div class="menu-card" data-category="Veg thali">
+        <img src="{{ url_for('static', filename='assets/images/parathathali.jpeg') }}">
+        <h3>Paratha Thali</h3>
+        <p>₹250</p>
+        <button class="buy-btn">Buy Now</button>
+    </div>
+<div class="menu-card" data-category="snacks">
+        <img src="{{ url_for('static', filename='assets/images/pizza.jpeg') }}">
+        <h3>Pizza
+
+        </h3>
+        <p>₹250</p>
+        <button class="buy-btn">Buy Now</button>
+    </div>
+<div class="menu-card" data-category="nonveg thali">
+        <img src="{{ url_for('static', filename='assets/images/chcikenthali.jpeg') }}">
+        <h3>Chicken Thali</h3>
+        <p>₹250</p>
+        <button class="buy-btn">Buy Now</button>
+    </div>
+
+
+    <div class="menu-card" data-category="veg thali">
+        <img src="{{ url_for('static', filename='images/veg_thali.jpg') }}">
+        <h3>Veg Thali</h3>
+        <p>₹180</p>
+        <button class="buy-btn">Buy Now</button>
+    </div>
+
+    <div class="menu-card" data-category="chinese veg">
+        <img src="{{ url_for('static', filename='assets/images/chowmein.jpg') }}">
+        <h3>Veg Chowmein</h3>
+        <p>₹120</p>
+        <button class="buy-btn">Buy Now</button>
+    </div>
+
+    <div class="menu-card" data-category="snacks veg">
+        <img src="{{ url_for('static', filename='assets/images/vegburger.jpeg') }}">
+        <h3>Veg Burger</h3>
+        <p>₹70</p>
+        <button class="buy-btn">Buy Now</button>
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+
+</body>
+</html>
