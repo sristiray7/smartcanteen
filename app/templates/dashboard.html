@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+<h1>Admin Dashboard</h1>
+
+<table border="1">
+    <tr>
+        <th>Order No</th>
+        <th>Name</th>
+        <th>Mobile</th>
+        <th>Table</th>
+        <th>Items</th>
+        <th>Total</th>
+        <th>Time</th>
+    </tr>
+
+    {% for order in orders %}
+    <tr>
+        <td>{{ order[1] }}</td>
+        <td>{{ order[2] }}</td>
+        <td>{{ order[3] }}</td>
+        <td>{{ order[4] }}</td>
+        <td>{{ order[5] }}</td>
+        <td>₹{{ order[6] }}</td>
+        <td>{{ order[7] }}</td>
+    </tr>
+    {% endfor %}
+</table>

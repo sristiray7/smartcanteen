@@ -1,0 +1,90 @@
+/* ===== Body ===== */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f6f9;
+}
+
+/* ===== Page Title ===== */
+h1 {
+    text-align: center;
+    padding: 20px;
+    background: #111;
+    color: white;
+    margin: 0;
+}
+
+/* ===== Table Container ===== */
+.table-container {
+    width: 95%;
+    margin: 30px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    overflow-x: auto;
+}
+
+/* ===== Table Styling ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: center;
+}
+
+th {
+    background: #2a9d8f;
+    color: white;
+    font-weight: 600;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* ===== Status Badge ===== */
+.status {
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: white;
+    display: inline-block;
+}
+
+/* Status Colors */
+.preparing {
+    background-color: #f4a261;
+}
+
+.ready {
+    background-color: #2a9d8f;
+}
+
+.served {
+    background-color: #264653;
+}
+
+/* ===== Order Images ===== */
+.item-images img {
+    width: 60px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin: 2px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    th, td {
+        font-size: 12px;
+        padding: 8px;
+    }
+}

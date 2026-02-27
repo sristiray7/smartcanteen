@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Order</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/myorder.css') }}">
+</head>
+<body>
+
+<div class="order-container">
+
+    <h1 class="page-title">Your Order Details</h1>
+
+    <div class="order-info">
+        <p><strong>Order No:</strong> {{ order[1] }}</p>
+        <p><strong>Name:</strong> {{ order[2] }}</p>
+        <p><strong>Mobile:</strong> {{ order[3] }}</p>
+        <p><strong>Table No:</strong> {{ order[4] }}</p>
+        <p><strong>Order Time:</strong> {{ order[7] }}</p>
+
+        <p class="status">
+            <strong>Status:</strong> 
+            <span class="status-badge">{{ order[8] }}</span>
+        </p>
+
+        <p class="estimated-time">
+            ⏳ Estimated Time: 20-25 minutes
+        </p>
+    </div>
+
+    <hr>
+
+    <h2>Ordered Items</h2>
+
+    <div class="items-container">
+        {% for item in items %}
+        <div class="item-card">
+            <img src="{{ url_for('static', filename='images/' + item.image) }}" alt="{{ item.name }}">
+            <div class="item-details">
+                <h3>{{ item.name }}</h3>
+                <p>Price: ₹{{ item.price }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="total-section">
+        <h2>Total Amount: ₹{{ order[6] }}</h2>
+    </div>
+
+    <a href="/" class="back-btn">Back to Home</a>
+
+</div>
+
+</body>
+</html>

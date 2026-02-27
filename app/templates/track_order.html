@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Track Order</title>
+</head>
+<body style="text-align:center; margin-top:100px; font-family: Arial;">
+
+    <h1>Track Your Order</h1>
+
+    <form action="" method="GET" onsubmit="event.preventDefault(); 
+        window.location.href='/my_order/' + document.getElementById('order_no').value;">
+
+        <input type="text" id="order_no" placeholder="Enter Order Number" required>
+        <button type="submit">Track</button>
+
+    </form>
+
+</body>
+</html>
