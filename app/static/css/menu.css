@@ -4,10 +4,14 @@
 
 body {
     font-family: 'Segoe UI', sans-serif;
-    background: #1a0010; /* Dark royal background */
     margin: 0;
     color: white;
     text-align: center;
+
+    background:
+        radial-gradient(circle at top left, rgba(212,175,55,0.08), transparent 40%),
+        radial-gradient(circle at bottom right, rgba(255,215,0,0.05), transparent 50%),
+        #1a0010;
 }
 
 /* SECTION SPACING */
@@ -23,7 +27,9 @@ body {
     font-size: 48px;
     margin-bottom: 40px;
     font-family: 'Playfair Display', serif;
-    color: #d4af37; /* Gold */
+    color: #d4af37;
+    letter-spacing: 2px;
+    text-shadow: 0 4px 15px rgba(212,175,55,0.4);
 }
 
 /* ================= FILTER BUTTONS ================= */
@@ -56,31 +62,90 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 35px;
+      perspective: 1200px; /* enables 3D space */
 }
 
 /* ================= CARD ================= */
 
 .menu-card {
-    background: #ffffff;
-    border-radius: 15px;
+    background: linear-gradient(145deg, #ffffff, #f8f8f8);
+    border-radius: 20px;
     overflow: hidden;
-    transition: 0.3s ease;
     color: #1a0010;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
-}
 
+    box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+
+    transform-style: preserve-3d;
+
+    transition:
+        transform 0.15s cubic-bezier(.2,.8,.2,1),
+        box-shadow 0.15s ease;
+
+    position: relative;
+
+    /* animation */
+       opacity: 0;
+   
+    animation: fadeUp 0.6s ease forwards;
+    will-change: transform;
+}
 .menu-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+    transform: translateY(-12px) scale(1.03);
+    box-shadow:
+        0 20px 40px rgba(0,0,0,0.45),
+        0 0 18px rgba(212,175,55,0.25);
 }
-
+.menu-card h3,
+.menu-card p,
+.menu-card button {
+    transform: translateZ(25px);
+}
 /* IMAGE */
 .menu-card img {
     width: 100%;
     height: 200px;
     object-fit: cover;
+    transition: transform 0.5s ease;
 }
 
+.menu-card:hover img {
+    transform: scale(1.12);
+}
+
+.menu-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        120deg,
+        transparent 30%,
+        rgba(255,255,255,0.25),
+        transparent 70%
+    );
+    transform: translateX(-100%);
+    transition: 0.6s;
+}
+
+.menu-card:hover::before {
+    transform: translateX(100%);
+}
+.menu-card::after {
+    content: "";
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    width: 70%;
+    height: 20px;
+    background: rgba(0,0,0,0.4);
+    filter: blur(12px);
+    transform: translateX(-50%);
+    transition: 0.4s ease;
+}
+
+.menu-card:hover::after {
+    width: 85%;
+    opacity: 0.7;
+}
 /* TEXT */
 .menu-card h3 {
     margin: 15px 0 5px;
@@ -92,6 +157,7 @@ body {
     font-weight: bold;
     color: #6b012f;
 }
+
 .filter-btn {
     margin-top: 10px;
     background: linear-gradient(90deg, #6b012f, #3b001f);
@@ -118,26 +184,27 @@ body {
 /* ================= BUTTON ================= */
 
 .buy-btn {
-    margin-top: 10px;
+    margin-top: 12px;
+    margin-bottom: 18px;
+
     background: linear-gradient(90deg, #6b012f, #3b001f);
     color: white;
     border: none;
-    padding: 10px 22px;
-    border-radius: 25px;
+
+    padding: 10px 24px;
+    border-radius: 30px;
+
     cursor: pointer;
-    transition: 0.3s ease;
-    margin-bottom: 15px;
+    transition: all 0.35s ease;
+
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
 }
 
 .buy-btn:hover {
     background: linear-gradient(90deg, #d4af37, #f4c430);
     color: black;
-    transform: translateY(-3px);
-}
-.btn:hover {
-    background: linear-gradient(90deg, #d4af37, #f4c430);
-    color: black;
-    transform: translateY(-3px);
+    transform: translateY(-4px) scale(1.07);
+    box-shadow: 0 10px 25px rgba(212,175,55,0.4);
 }
 .cart-btn {
     margin-top: 10px;
@@ -157,15 +224,12 @@ body {
     transform: translateY(-3px);
 }
 
-.menu-card {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 0.6s forwards;
-}
 
 @keyframes fadeUp {
+    from {
+        opacity: 0;
+    }
     to {
         opacity: 1;
-        transform: translateY(0);
     }
 }

@@ -375,6 +375,12 @@ footer {
     color: #3b001f;
 }
 
+
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
 .card button {
     margin-bottom: 20px;
     padding: 10px 20px;
@@ -389,9 +395,4 @@ footer {
 .card button:hover {
     background: #d4af37;
     color: black;
-}
-
-.card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
