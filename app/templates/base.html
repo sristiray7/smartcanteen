@@ -29,8 +29,26 @@
                 <li><a href="{{ url_for('menu') }}">Menu</a></li>
                 <li><a href="{{ url_for('contact') }}">Contact</a></li>
                 <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{url_for('notification')}}">Notifications</a></li>
                 <li><a href="{{ url_for('my_order_page') }}">My Order</a></li>
-                <li><a href="{{ url_for('login') }}">Login</a></li>
+               <li class="login-dropdown"><a href="#" id="loginToggle"><span class="nav-icon">👤</span> Login</a>
+
+    <div class="dropdown-menu">
+        <div class="dropdown-header">
+            <span>New customer?</span>
+            <a href="{{ url_for('login') }}">Sign Up</a>
+        </div>
+
+        <ul>
+            <li><a href="#">My Profile</a></li>
+            <li><a href="{{ url_for('mycart') }}">My Cart</a></li>
+            <li><a href="{{ url_for('wishlist') }}">Wishlist</a></li>
+            <li><a href="{{ url_for('rewards') }}">Rewards</a></li>
+            
+            <li><a href="{{ url_for('customer_care') }}">24x7 Customer Care</a></li>
+        </ul>
+    </div>
+</li>
             </ul>
         </nav>
     </div>
@@ -49,6 +67,7 @@ window.addEventListener("scroll", function() {
 });
 </script>
 {% block extra_js %}{% endblock %}
+<script src="{{ url_for('static', filename='js/navbar.js') }}"></script>
 
 </body>
 </html>

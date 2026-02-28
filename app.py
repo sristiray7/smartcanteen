@@ -58,8 +58,21 @@ def contact():
 @app.route("/login")
 def login():
     return render_template("login.html")
-
-
+@app.route("/mycart")
+def mycart():
+    return render_template("my_cart.html")
+@app.route("/wishlist")
+def wishlist():
+    return render_template("wishlist.html")
+@app.route("/rewards")
+def rewards():
+    return render_template("rewards.html")
+@app.route("/customer_care")
+def customer_care():
+    return render_template("customer_care.html")
+@app.route("/notification")
+def notification():
+    return render_template("notification.html")
 # Menu Page
 @app.route("/menu")
 def menu():
