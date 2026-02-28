@@ -1,54 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>The Crown of Creation</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "base.html" %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
+{% block title %}Home | The Crown of Creation{% endblock %}
 
+{% block content %}
 
-<body>
-
-<header>
-    <div class="container">
-        <nav>
-            <div class="logo">
-                <a href="/">
-                    <img src="{{ url_for('static', filename='assets/icons/logo.png') }}" 
-                         alt="The Crown of Creation Logo">
-                </a>
-                <h2>The Crown of Creation</h2>
-            </div>
-
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="{{ url_for('menu') }}">Menu</a></li>
-                <li><a href="{{ url_for('contact') }}">Contact</a></li>
-                <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
-                <li><a href="{{ url_for('my_order_page') }}">My Order</a></li>
-                <li><a href="{{ url_for('login') }}">Login</a></li>
-            </ul>
-        </nav>
-    </div>
-</header>
-
-
-<!-- FULL BACKGROUND HERO SECTION -->
-<!-- FULL BACKGROUND HERO SECTION -->
 <section class="hero-full">
 
-    <!-- Background Image -->
     <img src="{{ url_for('static', filename='assets/images/homepage.jpg') }}" 
          class="hero-bg-img" 
          alt="Background">
 
-    <!-- Dark Overlay -->
     <div class="hero-overlay"></div>
 
-    <!-- Content -->
     <div class="hero-content">
         <h1>
             Where Tradition <br>
@@ -67,6 +30,7 @@
     </div>
 
 </section>
+
 <section class="specials">
     <h2>Our Royal Specials</h2>
 
@@ -96,12 +60,5 @@
         </div>
     </div>
 </section>
-    
-<script>
-window.addEventListener("scroll", function() {
-    const header = document.querySelector("header");
-    header.classList.toggle("scrolled", window.scrollY > 50);
-});
-</script>
-</body>
-</html>
+
+{% endblock %}

@@ -2,30 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
-    <title>{% block title %}Smart Canteen{% endblock %}</title>
-
-    <!-- Responsive Meta -->
+    <title>{% block title %}The Crown of Creation{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Global CSS (optional if you create one) -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
-    <!-- Page Specific CSS -->
     {% block extra_css %}{% endblock %}
 </head>
 
 <body>
 
-    <!-- Main Page Content -->
-    {% block content %}
-    {% endblock %}
+<header>
+    <div class="container">
+        <nav>
+            <div class="logo">
+                <a href="/">
+                    <img src="{{ url_for('static', filename='assets/icons/logo.png') }}" 
+                         alt="The Crown of Creation Logo">
+                </a>
+                <h2>The Crown of Creation</h2>
+            </div>
 
-    <!-- Global JS (optional) -->
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="{{ url_for('menu') }}">Menu</a></li>
+                <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                <li><a href="{{ url_for('my_order_page') }}">My Order</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
 
-    <!-- Page Specific JS -->
-    {% block extra_js %}{% endblock %}
+{% block content %}{% endblock %}
+
+<footer>
+    <p>© 2026 The Crown of Creation | All Rights Reserved</p>
+</footer>
+
+<script>
+window.addEventListener("scroll", function() {
+    const header = document.querySelector("header");
+    header.classList.toggle("scrolled", window.scrollY > 50);
+});
+</script>
 
 </body>
 </html>

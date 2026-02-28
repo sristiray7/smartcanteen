@@ -1,74 +1,171 @@
+/* ========================= */
+/* MENU PAGE - LUXURY STYLE */
+/* ========================= */
+
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f4f4;
+    font-family: 'Segoe UI', sans-serif;
+    background: #1a0010; /* Dark royal background */
     margin: 0;
+    color: white;
     text-align: center;
 }
 
-.menu-title {
-    margin-top: 40px;
-    font-size: 40px;
+/* SECTION SPACING */
+.menu-section {
+    padding-top: 130px;
+    padding-bottom: 80px;
+    width: 90%;
+    margin: auto;
 }
 
+/* TITLE */
+.menu-title {
+    font-size: 48px;
+    margin-bottom: 40px;
+    font-family: 'Playfair Display', serif;
+    color: #d4af37; /* Gold */
+}
+
+/* ================= FILTER BUTTONS ================= */
+
 .category-filter {
-    margin: 30px 0;
+    margin-bottom: 40px;
 }
 
 .filter-btn {
-    padding: 10px 20px;
-    border: none;
-    margin: 5px;
+    padding: 10px 22px;
+    border-radius: 25px;
+    border: 1px solid #d4af37;
+    background: transparent;
+    color: #d4af37;
     cursor: pointer;
-    border-radius: 20px;
-    background: #f4a261;
-    color: white;
-    transition: 0.3s;
+    transition: 0.3s ease;
+    font-weight: 500;
 }
 
-.filter-btn:hover {
-    background: #e76f51;
+.filter-btn:hover,
+.filter-btn.active {
+    background: #d4af37;
+    color: #1a0010;
+    box-shadow: 0 5px 15px rgba(212,175,55,0.4);
 }
+
+/* ================= GRID ================= */
 
 .menu-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 30px;
-    padding: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 35px;
 }
 
+/* ================= CARD ================= */
+
 .menu-card {
-    background: white;
-    width: 250px;
+    background: #ffffff;
     border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    padding-bottom: 15px;
-}
-.menu-card {
-    width: 100%;
-    max-width: 250px;
+    overflow: hidden;
+    transition: 0.3s ease;
+    color: #1a0010;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
 }
 
+.menu-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+}
+
+/* IMAGE */
 .menu-card img {
     width: 100%;
-    height: 180px;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+    height: 200px;
     object-fit: cover;
 }
 
+/* TEXT */
 .menu-card h3 {
-    margin: 10px 0;
+    margin: 15px 0 5px;
+    font-size: 20px;
 }
 
-.buy-btn {
-    background: #2a9d8f;
+.menu-card p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #6b012f;
+}
+.filter-btn {
+    margin-top: 10px;
+    background: linear-gradient(90deg, #6b012f, #3b001f);
     color: white;
     border: none;
-    padding: 8px 15px;
-    border-radius: 20px;
+    padding: 10px 22px;
+    border-radius: 25px;
     cursor: pointer;
+    transition: 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.filter-btn:hover {
+    background: linear-gradient(90deg, #d4af37, #f4c430);
+    color: black;
+    transform: translateY(-3px);
+}
+.filter:hover {
+    background: linear-gradient(90deg, #d4af37, #f4c430);
+    color: black;
+    transform: translateY(-3px);
+}
+
+/* ================= BUTTON ================= */
+
+.buy-btn {
+    margin-top: 10px;
+    background: linear-gradient(90deg, #6b012f, #3b001f);
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin-bottom: 15px;
 }
 
 .buy-btn:hover {
-    background: #21867a;
+    background: linear-gradient(90deg, #d4af37, #f4c430);
+    color: black;
+    transform: translateY(-3px);
+}
+.btn:hover {
+    background: linear-gradient(90deg, #d4af37, #f4c430);
+    color: black;
+    transform: translateY(-3px);
+}
+.cart-btn {
+    margin-top: 10px;
+    background: linear-gradient(90deg, #6b012f, #3b001f);
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.cart-btn:hover {
+    background: linear-gradient(90deg, #d4af37, #f4c430);
+    color: black;
+    transform: translateY(-3px);
+}
+
+.menu-card {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s forwards;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
