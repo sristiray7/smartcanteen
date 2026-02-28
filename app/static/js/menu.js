@@ -1,18 +1,28 @@
-const buttons = document.querySelectorAll(".filter-btn");
-const cards = document.querySelectorAll(".menu-card");
+document.addEventListener("DOMContentLoaded", function () {
 
-buttons.forEach(button => {
-    button.addEventListener("click", () => {
-        const category = button.getAttribute("data-category");
+    const buttons = document.querySelectorAll(".filter-btn");
+    const cards = document.querySelectorAll(".menu-card");
 
-        cards.forEach(card => {
-            const itemCategory = card.getAttribute("data-category");
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
 
-            if (category === "all" || itemCategory.includes(category)) {
-                card.style.display = "block";
-            } else {
-                card.style.display = "none";
-            }
+            const category = button.getAttribute("data-category");
+
+            // Optional: Active button styling
+            buttons.forEach(btn => btn.classList.remove("active"));
+            button.classList.add("active");
+
+            cards.forEach(card => {
+                const itemCategory = card.getAttribute("data-category");
+
+                if (category === "all" || itemCategory === category) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+
         });
     });
+
 });
