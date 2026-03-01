@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+    /* ========================= */
+    /* CATEGORY FILTER */
+    /* ========================= */
+
     const buttons = document.querySelectorAll(".filter-btn");
     const cards = document.querySelectorAll(".menu-card");
 
@@ -8,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const category = button.getAttribute("data-category");
 
-            // Optional: Active button styling
             buttons.forEach(btn => btn.classList.remove("active"));
             button.classList.add("active");
 
@@ -22,6 +25,41 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             });
 
+        });
+    });
+
+    /* ========================= */
+    /* PAYMENT MODAL */
+    /* ========================= */
+
+    const buyButtons = document.querySelectorAll(".buy-btn");
+    const modal = document.getElementById("paymentModal");
+    const closeBtn = document.querySelector(".close-payment");
+    const paymentOptions = document.querySelectorAll(".payment-option");
+
+    buyButtons.forEach(button => {
+        button.addEventListener("click", function () {
+            modal.classList.add("active");
+        });
+    });
+
+    if (closeBtn) {
+        closeBtn.addEventListener("click", function () {
+            modal.classList.remove("active");
+        });
+    }
+
+    paymentOptions.forEach(option => {
+        option.addEventListener("click", function () {
+            const method = this.getAttribute("data-method");
+
+            if (method === "cash") {
+                alert("Cash Payment Selected");
+            } else {
+                alert("Online Payment Selected");
+            }
+
+            modal.classList.remove("active");
         });
     });
 

@@ -408,6 +408,21 @@
 </section>
 {% endblock %}
 {%block extra_js %}
+<!-- PAYMENT MODAL -->
+<div id="paymentModal" class="payment-modal">
+    <div class="payment-box">
+        <h2>Select Payment Method</h2>
 
+        <button class="payment-option" data-method="cash">
+            Cash on Delivery
+        </button>
+
+        <button class="payment-option" data-method="online">
+            Online Payment
+        </button>
+
+        <button class="close-payment">Cancel</button>
+    </div>
+</div>
 <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
 {% endblock %}

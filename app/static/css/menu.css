@@ -223,6 +223,84 @@ body {
     color: black;
     transform: translateY(-3px);
 }
+/* ================= PAYMENT MODAL ================= */
+
+.payment-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease;
+    z-index: 2000;
+}
+
+.payment-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.payment-box {
+    background: #fff;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    width: 320px;
+    animation: popUp 0.3s ease;
+}
+
+.payment-box h2 {
+    margin-bottom: 25px;
+    color: #3b001f;
+}
+
+.payment-option {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.payment-option[data-method="cash"] {
+    background: #3b001f;
+    color: white;
+}
+
+.payment-option[data-method="online"] {
+    background: #d4af37;
+    color: black;
+}
+
+.payment-option:hover {
+    transform: translateY(-3px);
+}
+
+.close-payment {
+    background: transparent;
+    border: none;
+    color: red;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+@keyframes popUp {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
 
 
 @keyframes fadeUp {
