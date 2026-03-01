@@ -25,12 +25,13 @@
 
             <ul>
                 <li><a href="/">Home</a></li>
-                <li><a href="#about">About</a></li>
+                 <li><a href="{{ url_for('about') }}">About Us</a></li>
                 <li><a href="{{ url_for('menu') }}">Menu</a></li>
                 <li><a href="{{ url_for('contact') }}">Contact</a></li>
                 <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
                 <li><a href="{{url_for('notification')}}">Notifications</a></li>
                 <li><a href="{{ url_for('my_order_page') }}">My Order</a></li>
+              
                <li class="login-dropdown"><a href="#" id="loginToggle"><span class="nav-icon">👤</span> Login</a>
 
     <div class="dropdown-menu">

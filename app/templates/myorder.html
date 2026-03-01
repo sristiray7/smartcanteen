@@ -1,58 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Order</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "base.html" %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/myorder.css') }}">
-</head>
-<body>
+{% block title %}My Orders | The Crown of Creation{% endblock %}
 
-<div class="order-container">
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/myorder.css') }}">
+{% endblock %}
 
-    <h1 class="page-title">Your Order Details</h1>
+{% block content %}
 
-    <div class="order-info">
-        <p><strong>Order No:</strong> {{ order[1] }}</p>
-        <p><strong>Name:</strong> {{ order[2] }}</p>
-        <p><strong>Mobile:</strong> {{ order[3] }}</p>
-        <p><strong>Table No:</strong> {{ order[4] }}</p>
-        <p><strong>Order Time:</strong> {{ order[7] }}</p>
+<section class="order-section">
 
-        <p class="status">
-            <strong>Status:</strong> 
-            <span class="status-badge">{{ order[8] }}</span>
-        </p>
+    <div class="order-container">
 
-        <p class="estimated-time">
-            ⏳ Estimated Time: 20-25 minutes
-        </p>
-    </div>
+        <h1>My Orders</h1>
+        <p class="subtitle">Your Complete Order History</p>
 
-    <hr>
+        <div class="table-wrapper">
+            <table class="order-table">
 
-    <h2>Ordered Items</h2>
+                <thead>
+                    <tr>
+                        <th>Order No</th>
+                        <th>Order Name</th>
+                        <th>Quantity</th>
+                        <th>Bill No</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Download Bill</th>
+                    </tr>
+                </thead>
 
-    <div class="items-container">
-        {% for item in items %}
-        <div class="item-card">
-            <img src="{{ url_for('static', filename='images/' + item.image) }}" alt="{{ item.name }}">
-            <div class="item-details">
-                <h3>{{ item.name }}</h3>
-                <p>Price: ₹{{ item.price }}</p>
-            </div>
+                <tbody>
+
+                    <!-- Example Static Rows -->
+                    <tr>
+                        <td>#ORD1023</td>
+                        <td>Chicken Burger</td>
+                        <td>2</td>
+                        <td>#BILL5501</td>
+                        <td>02 Mar 2026</td>
+                        <td>07:45 PM</td>
+                        <td>
+                            <button class="download-btn">Download</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>#ORD1045</td>
+                        <td>Veg Pizza</td>
+                        <td>1</td>
+                        <td>#BILL5502</td>
+                        <td>01 Mar 2026</td>
+                        <td>05:20 PM</td>
+                        <td>
+                            <button class="download-btn">Download</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
         </div>
-        {% endfor %}
+
     </div>
 
-    <div class="total-section">
-        <h2>Total Amount: ₹{{ order[6] }}</h2>
-    </div>
+</section>
 
-    <a href="/" class="back-btn">Back to Home</a>
-
-</div>
-
-</body>
-</html>
+{% endblock %}

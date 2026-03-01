@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}About Us | The Crown of Creation{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="about-hero">
+    <div class="about-overlay"></div>
+    <div class="about-hero-content">
+        <h1>The Crown of Creation</h1>
+        <p>Where Royal Taste Meets Modern Elegance</p>
+    </div>
+</section>
+
+<section class="about-section">
+    <div class="about-container">
+
+        <div class="about-grid">
+
+            <!-- LEFT CONTENT -->
+            <div class="about-text">
+                <h2>Our Story</h2>
+                <p>
+                    Born in the heart of Kolkata, <strong>The Crown of Creation</strong>
+                    is more than just a restaurant — it is an experience crafted
+                    with passion, tradition, and innovation.
+                </p>
+
+                <p>
+                    We blend royal Indian flavors with modern culinary artistry,
+                    delivering dishes that are both authentic and unforgettable.
+                </p>
+
+                <p>
+                    From street-style classics to premium gourmet creations,
+                    every plate is prepared with precision and care.
+                </p>
+            </div>
+
+            <!-- RIGHT IMAGE -->
+            <div class="about-image">
+                <img src="{{ url_for('static', filename='assets/images/about.jpg') }}" alt="Restaurant Interior">
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<section class="mission-section">
+    <div class="mission-container">
+        <h2>Our Mission</h2>
+        <p>
+            To deliver exceptional dining experiences with premium quality,
+            elegant ambiance, and unmatched hospitality.
+        </p>
+
+        <div class="mission-cards">
+            <div class="mission-card">
+                <h3>Quality</h3>
+                <p>Fresh ingredients. Authentic flavors. Perfect presentation.</p>
+            </div>
+
+            <div class="mission-card">
+                <h3>Ambience</h3>
+                <p>Luxury atmosphere designed for comfort and elegance.</p>
+            </div>
+
+            <div class="mission-card">
+                <h3>Service</h3>
+                <p>Professional, warm, and customer-first hospitality.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

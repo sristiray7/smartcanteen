@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Notifications | The Crown of Creation{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/notification.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="notification-section">
+
+    <div class="notification-container">
+
+        <h1>Order Notifications</h1>
+        <p class="subtitle">Live Order Activity</p>
+
+        <div class="table-wrapper">
+            <table class="notification-table">
+
+                <thead>
+                    <tr>
+                        <th>Table No</th>
+                        <th>Name</th>
+                        <th>Order No</th>
+                        <th>Item Name</th>
+                        <th>Quantity</th>
+                        <th>Payment</th>
+                        <th>Released</th>
+                    </tr>
+                </thead>
+
+               <tbody id="orderTableBody">
+
+    <tr>
+        <td>5</td>
+        <td>Rahul</td>
+        <td>ORD1023</td>
+        <td>Chicken Burger</td>
+        <td>2</td>
+        <td class="payment-cash">Cash</td>
+        <td><span class="status preparing">Preparing</span></td>
+    </tr>
+
+    <tr>
+        <td>2</td>
+        <td>Priya</td>
+        <td>ORD1045</td>
+        <td>Veg Pizza</td>
+        <td>1</td>
+        <td class="payment-online">Online</td>
+        <td><span class="status ready">Ready</span></td>
+    </tr>
+
+</tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

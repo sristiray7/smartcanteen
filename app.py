@@ -77,6 +77,9 @@ def notification():
 @app.route("/menu")
 def menu():
     return render_template("menu.html")
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 
 # ==============================
@@ -123,7 +126,7 @@ def place_order():
 
 @app.route("/my_order")
 def my_order_page():
-    return render_template("track_order.html")
+    return render_template("myorder.html")
 
 
 # ==============================

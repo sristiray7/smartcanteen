@@ -1,90 +1,165 @@
-/* ===== Body ===== */
+/* ========================= */
+/* ROYAL DASHBOARD STYLE */
+/* ========================= */
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', sans-serif;
     margin: 0;
-    background-color: #f4f6f9;
+    background:
+        radial-gradient(circle at top left, rgba(212,175,55,0.06), transparent 40%),
+        radial-gradient(circle at bottom right, rgba(255,215,0,0.05), transparent 50%),
+        #1a0010;
+    color: white;
 }
 
-/* ===== Page Title ===== */
+/* ========================= */
+/* PAGE TITLE */
+/* ========================= */
+
 h1 {
     text-align: center;
-    padding: 20px;
-    background: #111;
-    color: white;
+    padding: 25px;
     margin: 0;
+
+    font-size: 36px;
+    font-family: 'Playfair Display', serif;
+    color: #d4af37;
+    letter-spacing: 1px;
+
+    background: linear-gradient(90deg, #3b001f, #6b012f);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
 }
 
-/* ===== Table Container ===== */
+/* ========================= */
+/* TABLE CONTAINER */
+/* ========================= */
+
 .table-container {
     width: 95%;
-    margin: 30px auto;
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    margin: 40px auto;
+    padding: 30px;
+
+    background: linear-gradient(145deg, #2a0018, #1f0012);
+    border-radius: 20px;
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,0.6),
+        0 0 40px rgba(212,175,55,0.08);
+
     overflow-x: auto;
 }
 
-/* ===== Table Styling ===== */
+/* ========================= */
+/* TABLE STYLING */
+/* ========================= */
+
 table {
     width: 100%;
     border-collapse: collapse;
 }
 
 th, td {
-    padding: 12px 15px;
+    padding: 16px;
     text-align: center;
 }
 
 th {
-    background: #2a9d8f;
-    color: white;
+    background: linear-gradient(90deg, #6b012f, #3b001f);
+    color: #d4af37;
     font-weight: 600;
+    letter-spacing: 0.5px;
 }
 
-tr:nth-child(even) {
-    background-color: #f9f9f9;
+td {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    color: #ddd;
+}
+
+tr {
+    transition: 0.3s ease;
 }
 
 tr:hover {
-    background-color: #f1f1f1;
+    background: rgba(212,175,55,0.08);
+    transform: scale(1.01);
 }
 
-/* ===== Status Badge ===== */
+/* ========================= */
+/* STATUS BADGES */
+/* ========================= */
+
 .status {
-    padding: 5px 12px;
+    padding: 6px 14px;
     border-radius: 20px;
     font-size: 13px;
-    color: white;
+    font-weight: 600;
+    letter-spacing: 0.5px;
     display: inline-block;
 }
 
-/* Status Colors */
+/* Preparing */
 .preparing {
-    background-color: #f4a261;
+    background: rgba(241,196,15,0.15);
+    color: #f1c40f;
 }
 
+/* Ready */
 .ready {
-    background-color: #2a9d8f;
+    background: rgba(46,204,113,0.15);
+    color: #2ecc71;
 }
 
+/* Served */
 .served {
-    background-color: #264653;
+    background: rgba(52,152,219,0.15);
+    color: #3498db;
 }
 
-/* ===== Order Images ===== */
+/* ========================= */
+/* PAYMENT COLORS */
+/* ========================= */
+
+.payment-cash {
+    color: #f4c430;
+    font-weight: 600;
+}
+
+.payment-online {
+    color: #2ecc71;
+    font-weight: 600;
+}
+
+/* ========================= */
+/* ORDER IMAGES */
+/* ========================= */
+
 .item-images img {
-    width: 60px;
-    height: 50px;
+    width: 65px;
+    height: 55px;
     object-fit: cover;
-    border-radius: 6px;
-    margin: 2px;
+    border-radius: 8px;
+    margin: 4px;
+
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+    transition: 0.3s ease;
 }
 
-/* ===== Responsive ===== */
+.item-images img:hover {
+    transform: scale(1.1);
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+
 @media (max-width: 768px) {
+
     th, td {
-        font-size: 12px;
-        padding: 8px;
+        font-size: 13px;
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 26px;
     }
 }

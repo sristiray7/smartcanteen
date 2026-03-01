@@ -1,5 +1,5 @@
 /* ========================= */
-/* ROYAL ORDER PAGE */
+/* NOTIFICATION PAGE - ROYAL */
 /* ========================= */
 
 body {
@@ -16,20 +16,16 @@ body {
 /* SECTION */
 /* ========================= */
 
-.order-section {
+.notification-section {
     padding: 140px 8% 80px;
 }
 
-.order-container {
+.notification-container {
     max-width: 1200px;
     margin: auto;
 }
 
-/* ========================= */
-/* HEADING */
-/* ========================= */
-
-.order-container h1 {
+.notification-container h1 {
     text-align: center;
     font-size: 40px;
     color: #d4af37;
@@ -50,63 +46,55 @@ body {
 .table-wrapper {
     overflow-x: auto;
     border-radius: 20px;
-    box-shadow:
-        0 25px 60px rgba(0,0,0,0.6),
-        0 0 40px rgba(212,175,55,0.08);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.6);
 }
 
-.order-table {
+.notification-table {
     width: 100%;
     border-collapse: collapse;
     background: linear-gradient(145deg, #2a0018, #1f0012);
+    border-radius: 20px;
+    overflow: hidden;
 }
 
-.order-table thead {
+.notification-table thead {
     background: linear-gradient(90deg, #6b012f, #3b001f);
 }
 
-.order-table th {
+.notification-table th {
     padding: 18px;
-    text-align: center;
-    color: #d4af37;
+    text-align: left;
     font-weight: 600;
+    color: #d4af37;
+    letter-spacing: 1px;
 }
 
-.order-table td {
+.notification-table td {
     padding: 16px;
-    text-align: center;
     border-top: 1px solid rgba(255,255,255,0.05);
     color: #ddd;
 }
 
-.order-table tbody tr {
+.notification-table tbody tr {
     transition: 0.3s ease;
 }
 
-.order-table tbody tr:hover {
+.notification-table tbody tr:hover {
     background: rgba(212,175,55,0.08);
 }
 
 /* ========================= */
-/* DOWNLOAD BUTTON */
+/* PAYMENT TAGS */
 /* ========================= */
 
-.download-btn {
-    padding: 8px 18px;
-    border-radius: 25px;
-    border: none;
-    cursor: pointer;
+.payment-cash {
+    color: #f4c430;
     font-weight: 600;
-    background: linear-gradient(90deg, #6b012f, #3b001f);
-    color: white;
-    transition: all 0.3s ease;
 }
 
-.download-btn:hover {
-    background: linear-gradient(90deg, #d4af37, #f4c430);
-    color: black;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(212,175,55,0.3);
+.payment-online {
+    color: #2ecc71;
+    font-weight: 600;
 }
 
 /* ========================= */
@@ -115,13 +103,39 @@ body {
 
 @media (max-width: 768px) {
 
-    .order-container h1 {
+    .notification-container h1 {
         font-size: 28px;
     }
 
-    .order-table th,
-    .order-table td {
-        padding: 10px;
+    .notification-table th,
+    .notification-table td {
+        padding: 12px;
         font-size: 14px;
     }
+}
+/* ========================= */
+/* STATUS BADGES */
+/* ========================= */
+
+.status {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.preparing {
+    background: rgba(241, 196, 15, 0.15);
+    color: #f1c40f;
+}
+
+.ready {
+    background: rgba(46, 204, 113, 0.15);
+    color: #2ecc71;
+}
+
+.completed {
+    background: rgba(52, 152, 219, 0.15);
+    color: #3498db;
 }
