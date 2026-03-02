@@ -64,3 +64,50 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+/* ========================= */
+/* AUTO ADD HEART ICON */
+/* ========================= */
+
+const cards = document.querySelectorAll(".menu-card");
+
+// Load existing wishlist
+let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+
+cards.forEach(card => {
+
+    // Create heart container
+    const heartWrapper = document.createElement("div");
+    heartWrapper.classList.add("wishlist-icon");
+
+    const heart = document.createElement("span");
+    heart.classList.add("heart");
+    heart.textContent = "♡";
+
+    heartWrapper.appendChild(heart);
+    card.appendChild(heartWrapper);
+
+    const itemName = card.querySelector("h3").textContent;
+
+    // If already saved
+    if (wishlist.includes(itemName)) {
+        heart.classList.add("active");
+        heart.textContent = "♥";
+    }
+
+    heart.addEventListener("click", function (e) {
+        e.stopPropagation(); // prevent other clicks
+
+        if (wishlist.includes(itemName)) {
+            wishlist = wishlist.filter(item => item !== itemName);
+            heart.classList.remove("active");
+            heart.textContent = "♡";
+        } else {
+            wishlist.push(itemName);
+            heart.classList.add("active");
+            heart.textContent = "♥";
+        }
+
+        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    });
+
+});

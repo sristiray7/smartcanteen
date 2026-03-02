@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}My Wishlist | The Crown of Creation{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/wishlist.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="wishlist-section">
+
+    <div class="wishlist-container">
+
+        <h1>My Wishlist</h1>
+        <p class="subtitle">Your Saved Favorites</p>
+
+        <div class="wishlist-grid">
+
+            <!-- Product Card -->
+            <div class="wishlist-card">
+
+                <div class="wishlist-img">
+                    <img src="{{ url_for('static', filename='assets/images/veg pizza.jpg') }}" alt="">
+                </div>
+
+                <div class="wishlist-content">
+                    <h3>Veg Pizza</h3>
+                    <p class="price">₹200</p>
+
+                    <div class="wishlist-actions">
+                        <button class="move-btn">Move to Cart</button>
+                        <button class="remove-btn">Remove</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Product Card -->
+            <div class="wishlist-card">
+
+                <div class="wishlist-img">
+                    <img src="{{ url_for('static', filename='assets/images/Chicken Burger.jpg') }}" alt="">
+                </div>
+
+                <div class="wishlist-content">
+                    <h3>Chicken Burger</h3>
+                    <p class="price">₹139</p>
+
+                    <div class="wishlist-actions">
+                        <button class="move-btn">Move to Cart</button>
+                        <button class="remove-btn">Remove</button>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Empty State -->
+        <div class="empty-wishlist" style="display:none;">
+            <h2>Your Wishlist is Empty</h2>
+            <p>Start adding your favorite dishes now 👑</p>
+            <a href="{{ url_for('menu') }}" class="shop-btn">Explore Menu</a>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
