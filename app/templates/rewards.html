@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Rewards | The Crown of Creation{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/rewards.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="rewards-section">
+
+    <h1 class="rewards-title">Royal Rewards</h1>
+    <p class="rewards-subtitle">Earn points. Unlock status. Enjoy royal benefits.</p>
+
+    <!-- Current Status Card -->
+    <div class="status-card">
+        <div class="status-left">
+            <h2>Your Current Tier</h2>
+            <h3 class="tier gold">Gold Member</h3>
+            <p>Points: <strong>1,450</strong></p>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 65%;"></div>
+            </div>
+            <p>550 points to reach Platinum 👑</p>
+        </div>
+    </div>
+
+    <!-- Tier Cards -->
+    <div class="tiers-container">
+
+        <div class="tier-card silver">
+            <h3>Silver</h3>
+            <p>0 - 500 Points</p>
+            <ul>
+                <li>✔ 5% Discount</li>
+                <li>✔ Birthday Surprise</li>
+            </ul>
+        </div>
+
+        <div class="tier-card gold">
+            <h3>Gold</h3>
+            <p>500 - 2000 Points</p>
+            <ul>
+                <li>✔ 10% Discount</li>
+                <li>✔ Priority Support</li>
+                <li>✔ Free Dessert on Orders Above ₹500</li>
+            </ul>
+        </div>
+
+        <div class="tier-card platinum">
+            <h3>Platinum</h3>
+            <p>2000+ Points</p>
+            <ul>
+                <li>✔ 15% Discount</li>
+                <li>✔ VIP Table Access</li>
+                <li>✔ Free Delivery</li>
+                <li>✔ Exclusive Event Invites</li>
+            </ul>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

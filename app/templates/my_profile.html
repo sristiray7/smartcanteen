@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile | The Crown of Creation{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="profile-section">
+
+    <div class="profile-container">
+
+        <h1>My Profile</h1>
+        <p class="subtitle">Manage your account details</p>
+
+        <!-- PROFILE CARD -->
+        <div class="profile-card">
+
+            <!-- LEFT SIDE -->
+            <div class="profile-left">
+                <div class="profile-avatar">
+                    <img src="{{ url_for('static', filename='assets/images/profile.jpg') }}" alt="Profile">
+                </div>
+
+                <h2>Ayush Das</h2>
+                <p class="member-tag">Royal Member</p>
+            </div>
+
+            <!-- RIGHT SIDE -->
+            <div class="profile-right">
+
+                <form>
+
+                    <label>Full Name</label>
+                    <input type="text" value="Ayush Das">
+
+                    <label>Email</label>
+                    <input type="email" value="ayush@example.com">
+
+                    <label>Phone</label>
+                    <input type="text" value="+91 9876543210">
+
+                    <label>Address</label>
+                    <textarea rows="3">Kolkata, West Bengal</textarea>
+
+                    <button type="submit" class="save-btn">Save Changes</button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <!-- SUMMARY SECTION -->
+        <div class="profile-summary">
+
+            <div class="summary-card">
+                <h3>12</h3>
+                <p>Total Orders</p>
+            </div>
+
+            <div class="summary-card">
+                <h3>₹4,580</h3>
+                <p>Total Spent</p>
+            </div>
+
+            <div class="summary-card">
+                <h3>5</h3>
+                <p>Wishlist Items</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

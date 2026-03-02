@@ -1,0 +1,175 @@
+/* ========================= */
+/* 24x7 CUSTOMER CARE PAGE */
+/* ========================= */
+
+.support-section {
+    padding-top: 130px;
+    padding-bottom: 80px;
+    width: 90%;
+    margin: auto;
+    color: white;
+}
+
+/* ================= HERO ================= */
+
+.support-hero {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.support-hero h1 {
+    font-size: 48px;
+    font-family: 'Playfair Display', serif;
+    color: #d4af37;
+    letter-spacing: 2px;
+    text-shadow: 0 4px 20px rgba(212,175,55,0.4);
+}
+
+.support-hero p {
+    margin-top: 10px;
+    color: #3d0532;
+}
+
+/* ================= LAYOUT ================= */
+
+.support-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+
+/* ================= SUPPORT CARDS ================= */
+
+.support-options {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.support-card {
+    background: linear-gradient(145deg, #3b001f, #5c012f);
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    transition: 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.support-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+}
+
+/* Subtle glowing border */
+.support-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 25px;
+    padding: 2px;
+    background: linear-gradient(90deg, #d4af37, transparent);
+    -webkit-mask:
+        linear-gradient(#000 0 0) content-box,
+        linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+.icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+}
+
+.support-card h3 {
+    margin-bottom: 8px;
+}
+
+.support-card span {
+    font-size: 13px;
+    color: #ccc;
+}
+
+/* Button */
+.support-btn {
+    margin-top: 10px;
+    padding: 10px 22px;
+    border-radius: 30px;
+    border: none;
+    background: linear-gradient(90deg, #d4af37, #f4c430);
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.support-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(212,175,55,0.4);
+}
+
+/* ================= FORM ================= */
+
+.support-form-box {
+    background: rgba(59, 0, 31, 0.8);
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    backdrop-filter: blur(10px);
+}
+
+.support-form-box h2 {
+    margin-bottom: 25px;
+    color: #d4af37;
+}
+
+.support-form-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.support-form-box input,
+.support-form-box textarea {
+    padding: 14px 18px;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    background: #ffffff;
+    color: #1a0010;
+}
+
+.support-form-box input:focus,
+.support-form-box textarea:focus {
+    box-shadow: 0 0 0 3px rgba(212,175,55,0.4);
+}
+
+/* Submit Button */
+.submit-btn {
+    padding: 14px;
+    border-radius: 30px;
+    border: none;
+    background: linear-gradient(90deg, #d4af37, #f4c430);
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.submit-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(212,175,55,0.5);
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 900px) {
+    .support-container {
+        grid-template-columns: 1fr;
+    }
+
+    .support-hero h1 {
+        font-size: 36px;
+    }
+}

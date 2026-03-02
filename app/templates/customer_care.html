@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}24×7 Customer Care | The Crown of Creation{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/customercare.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="support-section">
+
+    <div class="support-hero">
+        <h1>Royal 24×7 Customer Care</h1>
+        <p>We are always at your service — day or night.</p>
+    </div>
+
+    <div class="support-container">
+
+        <!-- Left Side - Contact Options -->
+        <div class="support-options">
+
+            <div class="support-card">
+                <div class="icon">📞</div>
+                <h3>Call Us Anytime</h3>
+                <p>+91 98765 43210</p>
+                <span>Instant assistance within 2 minutes</span>
+            </div>
+
+            <div class="support-card">
+                <div class="icon">💬</div>
+                <h3>Live Chat</h3>
+                <p>Chat with our royal support team</p>
+                <button class="support-btn">Start Chat</button>
+            </div>
+
+            <div class="support-card">
+                <div class="icon">📧</div>
+                <h3>Email Support</h3>
+                <p>support@crownofcreation.com</p>
+                <span>Response within 6 hours</span>
+            </div>
+
+        </div>
+
+        <!-- Right Side - Support Form -->
+        <div class="support-form-box">
+            <h2>Send Us a Message</h2>
+
+            <form>
+                <input type="text" placeholder="Your Full Name" required>
+                <input type="email" placeholder="Your Email Address" required>
+                <textarea rows="5" placeholder="Describe your issue..." required></textarea>
+                <button type="submit" class="submit-btn">Submit Request</button>
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

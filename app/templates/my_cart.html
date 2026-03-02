@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}My Cart | The Crown of Creation{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/mycart.css') }}">
+{% endblock %}
+
+{% block content %}
+
+<section class="cart-section">
+
+    <h1 class="cart-title">My Cart</h1>
+
+    <div class="cart-container">
+
+        <!-- Cart Items -->
+        <div class="cart-items">
+
+            <div class="cart-item">
+                <img src="{{ url_for('static', filename='assets/images/veg pizza.jpg') }}" alt="Veg Pizza">
+
+                <div class="item-details">
+                    <h3>Veg Pizza</h3>
+                    <p>₹200</p>
+
+                    <div class="quantity-control">
+                        <button>-</button>
+                        <span>1</span>
+                        <button>+</button>
+                    </div>
+                </div>
+
+                <div class="item-total">
+                    ₹200
+                </div>
+
+                <button class="remove-btn">✖</button>
+            </div>
+
+            <div class="cart-item">
+                <img src="{{ url_for('static', filename='assets/images/Cold Coffee.jpg') }}" alt="Cold Coffee">
+
+                <div class="item-details">
+                    <h3>Cold Coffee</h3>
+                    <p>₹100</p>
+
+                    <div class="quantity-control">
+                        <button>-</button>
+                        <span>2</span>
+                        <button>+</button>
+                    </div>
+                </div>
+
+                <div class="item-total">
+                    ₹200
+                </div>
+
+                <button class="remove-btn">✖</button>
+            </div>
+
+        </div>
+
+        <!-- Cart Summary -->
+        <div class="cart-summary">
+            <h2>Order Summary</h2>
+
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span>₹400</span>
+            </div>
+
+            <div class="summary-row">
+                <span>Delivery</span>
+                <span>₹40</span>
+            </div>
+
+            <div class="summary-row total">
+                <span>Total</span>
+                <span>₹440</span>
+            </div>
+
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

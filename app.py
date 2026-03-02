@@ -80,6 +80,9 @@ def menu():
 @app.route("/about")
 def about():
     return render_template("about.html")
+@app.route("/my_profile")
+def my_profile():
+    return render_template("my_profile.html")
 
 
 
