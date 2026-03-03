@@ -22,7 +22,7 @@ body {
 
 header {
     position: fixed;
-    top: 20px;              /* change from 20px to 0 */
+    top: 0px;              /* change from 20px to 0 */
     width: 100%;
     z-index: 1000;
 
