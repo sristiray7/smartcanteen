@@ -1,9 +1,16 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_wtf.csrf import CSRFProtect
+from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 import json
 from datetime import datetime
 import random
+import os 
+from dotenv import load_dotenv
+from flask import session
+load_dotenv()
+ADMIN_EMAIL = os.getenv("ADMIN_EMAIL")
+ADMIN_PASSWORD = os.getenv("ADMIN_PASSWORD")
 
 app = Flask(
     __name__,
@@ -23,6 +30,7 @@ def init_db():
     conn = sqlite3.connect("orders.db")
     cursor = conn.cursor()
 
+    # Orders table
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS orders (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -37,9 +45,17 @@ def init_db():
         )
     """)
 
+    # Users table
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            mobile TEXT UNIQUE,
+            password TEXT
+        )
+    """)
+
     conn.commit()
     conn.close()
-
 
 # ==============================
 # ROUTES
@@ -54,10 +70,82 @@ def home():
 def contact():
     return render_template("contact.html")
 
-# Login Page
-@app.route("/login")
+#---------------user login and admin login routes------
+@app.route("/login", methods=["GET","POST"])
 def login():
+
+    if request.method == "POST":
+
+        role = request.form.get("role")
+        password = request.form.get("password")
+
+        # ======================
+        # ADMIN LOGIN
+        # ======================
+        if role == "admin":
+
+            email = request.form.get("email")
+
+            if email == ADMIN_EMAIL and password == ADMIN_PASSWORD:
+                session["admin_logged_in"] = True
+                return redirect(url_for("home"))
+            else:
+                return "Invalid admin credentials"
+
+        # ======================
+        # USER LOGIN
+        # ======================
+        if role == "user":
+
+            mobile = request.form.get("email")
+
+            conn = sqlite3.connect("orders.db")
+            cursor = conn.cursor()
+
+            cursor.execute(
+                "SELECT * FROM users WHERE mobile=? AND password=?",
+                (mobile, password)
+            )
+
+            user = cursor.fetchone()
+            conn.close()
+
+            if user:
+                return redirect(url_for("home"))
+            else:
+                return "Invalid mobile or password"
+
     return render_template("login.html")
+#---------------user login and admin login routes------
+
+#------------signup routes-----------
+@app.route("/signup", methods=["POST"])
+def signup():
+
+    mobile = request.form.get("mobile")
+    password = request.form.get("password")
+
+    conn = sqlite3.connect("orders.db")
+    cursor = conn.cursor()
+
+    # check existing user
+    cursor.execute("SELECT * FROM users WHERE mobile=?", (mobile,))
+    user = cursor.fetchone()
+
+    if user:
+        conn.close()
+        return "User already exists"
+
+    cursor.execute(
+        "INSERT INTO users (mobile, password) VALUES (?,?)",
+        (mobile, password)
+    )
+
+    conn.commit()
+    conn.close()
+
+    return "Signup successful"
+#----------------other routes--------------
 @app.route("/mycart")
 def mycart():
     return render_template("my_cart.html")
@@ -161,6 +249,9 @@ def my_order(order_no):
 
 @app.route("/dashboard")
 def dashboard():
+
+    if not session.get("admin_logged_in"):
+        return redirect(url_for("login"))
 
     conn = sqlite3.connect("orders.db")
     cursor = conn.cursor()
