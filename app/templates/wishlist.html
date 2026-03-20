@@ -9,63 +9,89 @@
 {% block content %}
 
 <section class="wishlist-section">
-
     <div class="wishlist-container">
 
         <h1>My Wishlist</h1>
         <p class="subtitle">Your Saved Favorites</p>
 
-        <div class="wishlist-grid">
+        {% if wish_items %}
 
-            <!-- Product Card -->
-            <div class="wishlist-card">
+        <div class="wishlist-grid" id="wishlistGrid">
+
+            {% for item in wish_items %}
+            <div class="wishlist-card" id="wish-item-{{ item.id }}">
 
                 <div class="wishlist-img">
-                    <img src="{{ url_for('static', filename='assets/images/veg pizza.jpg') }}" alt="">
+                    <img src="{{ url_for('static', filename='assets/images/menu_items/' + item.image_filename) if item.image_filename else url_for('static', filename='assets/images/placeholder.jpg') }}"
+                         alt="{{ item.name }}">
                 </div>
 
                 <div class="wishlist-content">
-                    <h3>Veg Pizza</h3>
-                    <p class="price">₹200</p>
+                    <h3>{{ item.name }}</h3>
+                    <p class="price">₹{{ item.price }}</p>
 
                     <div class="wishlist-actions">
-                        <button class="move-btn">Move to Cart</button>
-                        <button class="remove-btn">Remove</button>
+                        <button class="move-btn" onclick="moveToCart({{ item.id }})">
+                            Move to Cart
+                        </button>
+                        <button class="remove-btn" onclick="removeWishItem({{ item.id }})">
+                            Remove
+                        </button>
                     </div>
                 </div>
 
             </div>
-
-            <!-- Product Card -->
-            <div class="wishlist-card">
-
-                <div class="wishlist-img">
-                    <img src="{{ url_for('static', filename='assets/images/Chicken Burger.jpg') }}" alt="">
-                </div>
-
-                <div class="wishlist-content">
-                    <h3>Chicken Burger</h3>
-                    <p class="price">₹139</p>
-
-                    <div class="wishlist-actions">
-                        <button class="move-btn">Move to Cart</button>
-                        <button class="remove-btn">Remove</button>
-                    </div>
-                </div>
-
-            </div>
+            {% endfor %}
 
         </div>
 
-        <!-- Empty State -->
-        <div class="empty-wishlist" style="display:none;">
+        {% else %}
+
+        <!-- Empty Wishlist -->
+        <div class="empty-wishlist">
             <h2>Your Wishlist is Empty</h2>
             <p>Start adding your favorite dishes now 👑</p>
             <a href="{{ url_for('menu') }}" class="shop-btn">Explore Menu</a>
         </div>
 
-    </div>
+        {% endif %}
 
+    </div>
 </section>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+async function removeWishItem(itemId) {
+    const res  = await fetch(`/wishlist/remove/${itemId}`, { method: 'POST' });
+    const data = await res.json();
+
+    if (data.success) {
+        document.getElementById('wish-item-' + itemId).remove();
+        checkEmpty();
+    }
+}
+
+async function moveToCart(itemId) {
+    const res  = await fetch(`/wishlist/move-to-cart/${itemId}`, { method: 'POST' });
+    const data = await res.json();
+
+    if (data.success && data.redirect) {
+        window.location.href = data.redirect;
+    }
+}
+
+function checkEmpty() {
+    const grid = document.getElementById('wishlistGrid');
+    if (grid && grid.children.length === 0) {
+        grid.outerHTML = `
+            <div class="empty-wishlist">
+                <h2>Your Wishlist is Empty</h2>
+                <p>Start adding your favorite dishes now 👑</p>
+                <a href="/menu" class="shop-btn">Explore Menu</a>
+            </div>`;
+    }
+}
+</script>
 {% endblock %}

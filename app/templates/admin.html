@@ -6,34 +6,21 @@
 <div class="admin-page">
     <header class="admin-page-header">
         <h2>Admin Dashboard</h2>
-        <p>Quick overview of activity across notices, announcements, and materials.</p>
+        <p>Manage your restaurant: orders, menu, and more.</p>
     </header>
 
     <section class="admin-stats-grid" data-aos="fade-up">
+        
         <article class="admin-card" data-aos="zoom-in">
-            <h3>Notices</h3>
-            <p class="admin-stat">{{ notice_count }}</p>
-            <a href="{{ url_for('notices') }}" class="btn btn-outline btn-xs">Manage Notices</a>
+            <h3>📋 Menu Management</h3>
+            <p>Add, edit, and delete menu items</p>
+            <a href="{{ url_for('menu') }}" class="btn btn-outline btn-xs">Manage Menu</a>
         </article>
 
         <article class="admin-card" data-aos="zoom-in" data-aos-delay="60">
-            <h3>Announcements</h3>
-            <p class="admin-stat">{{ announcement_count }}</p>
-            <a href="{{ url_for('announcements') }}" class="btn btn-outline btn-xs">Manage Announcements</a>
-        </article>
-
-        <article class="admin-card" data-aos="zoom-in" data-aos-delay="120">
-            <h3>Study Materials</h3>
-            <p class="admin-stat">{{ material_count }}</p>
-            <a href="{{ url_for('materials') }}" class="btn btn-outline btn-xs">Manage Materials</a>
-        </article>
-
-        <article class="admin-card admin-card-accent" data-aos="zoom-in" data-aos-delay="180">
-            <h3>Paid Materials</h3>
-            <p class="admin-stat">{{ paid_material_count }}</p>
-            <a href="{{ url_for('admin_payments') }}" class="btn btn-secondary btn-xs">
-                View Payments
-            </a>
+            <h3>📦 Orders</h3>
+            <p>View and manage customer orders</p>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-outline btn-xs">View Orders</a>
         </article>
     </section>
 </div>

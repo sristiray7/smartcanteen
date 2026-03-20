@@ -1,0 +1,346 @@
+/* ================================================ */
+/* responsive.css — mobile & tablet overrides only  */
+/* Desktop navbar is handled fully in style.css     */
+/* ================================================ */
+
+
+/* ── HAMBURGER OPEN → X animation ──────────────── */
+
+.menu-toggle.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+.menu-toggle.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+
+/* ================================================ */
+/* TABLET — 768px and below                         */
+/* Hamburger appears, nav links slide in from left  */
+/* ================================================ */
+
+@media (max-width: 768px) {
+
+    /* Header stays 65px (--nav-height) */
+
+    /* Show hamburger */
+    .menu-toggle {
+        display: flex !important;
+    }
+
+    /* Full-screen slide-in menu */
+    .nav-links {
+        position: fixed;
+        top: var(--nav-height);
+        left: 0;
+        width: 100%;
+        height: calc(100vh - var(--nav-height));
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 0;
+        background: rgba(25, 0, 12, 0.98);
+        padding: 12px 0 40px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        /* Off-screen by default */
+        transform: translateX(-100%);
+        transition: transform 0.32s ease;
+        z-index: 998;
+        /* Undo desktop overflow:hidden clip */
+        overflow: initial;
+        overflow-y: auto;
+    }
+
+    .nav-links.open {
+        transform: translateX(0);
+    }
+
+    /* Each list item full-width */
+    .nav-links > li {
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        flex-shrink: 0;
+    }
+
+    /* All links inside mobile menu */
+    .nav-links > li > a {
+        display: block;
+        width: 100%;
+        padding: 15px 28px;
+        font-size: 15px !important;
+        color: #f5f5f5 !important;
+        white-space: nowrap;
+        justify-content: flex-start;
+    }
+
+    .nav-links > li > a:hover {
+        color: #d4af37 !important;
+        background: rgba(255, 255, 255, 0.06);
+    }
+
+    /* Remove underline animation in mobile */
+    .nav-links > li > a::after {
+        display: none !important;
+    }
+
+    /* ── LOGIN DROPDOWN inside mobile menu ── */
+    .login-dropdown {
+        width: 100%;
+        position: relative;
+    }
+
+    .login-dropdown > a {
+        display: block;
+        width: 100%;
+        padding: 15px 28px !important;
+    }
+
+    /* Override desktop absolute positioning */
+    .dropdown-menu {
+        position: static !important;
+        width: 100% !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        background: rgba(255, 255, 255, 0.05) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        display: none;
+        padding: 0 !important;
+        backdrop-filter: none !important;
+        top: auto !important;
+    }
+
+    .login-dropdown.active .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-header {
+        background: rgba(255, 255, 255, 0.04);
+        color: #f5f5f5;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 13px;
+        padding: 12px 28px;
+    }
+
+    .dropdown-header a {
+        color: #f4c430 !important;
+    }
+
+    .dropdown-menu ul li a {
+        color: #e0e0e0 !important;
+        padding: 12px 44px !important;
+        background: transparent !important;
+        font-size: 14px !important;
+    }
+
+    .dropdown-menu ul li a:hover {
+        background: rgba(255, 255, 255, 0.08) !important;
+        color: #d4af37 !important;
+    }
+
+    /* ── HERO ── */
+    .hero-full {
+        height: auto;
+        min-height: 100svh;
+        padding: var(--nav-height) 6% 50px;
+        align-items: center;
+    }
+
+    .hero-overlay {
+        background: linear-gradient(
+            160deg,
+            rgba(30, 0, 10, 0.75) 0%,
+            rgba(30, 0, 10, 0.9) 60%
+        );
+    }
+
+    .hero-content { max-width: 100%; }
+    .hero-content h1 { font-size: 34px; line-height: 1.25; }
+    .hero-content p  { font-size: 15px; margin: 14px 0; }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 22px;
+    }
+
+    .btn {
+        padding: 12px 24px;
+        font-size: 14px;
+        width: 100%;
+        max-width: 260px;
+    }
+
+    .discount { width: 100px; height: 100px; margin-top: 20px; }
+    .discount h2 { font-size: 20px; }
+
+    /* ── SPECIALS ── */
+    .specials { padding: 50px 5%; }
+    .specials h2 { font-size: 28px; margin-bottom: 28px; }
+
+    .special-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+
+    .card img { height: 150px; }
+
+    /* ── MENU SECTION ── */
+    .menu-section  { padding-top: 90px; padding-bottom: 50px; width: 95%; }
+    .menu-title    { font-size: 26px; margin-bottom: 22px; }
+
+    .menu-container {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 16px;
+    }
+
+    .menu-card img { height: 140px; }
+    .menu-card h3  { font-size: 14px; }
+    .menu-card p   { font-size: 13px; }
+    .filter-btn    { padding: 7px 14px; font-size: 12px; }
+
+    /* ── CART ── */
+    .cart-section  { padding-top: 90px; padding-bottom: 50px; width: 95%; }
+    .cart-title    { font-size: 24px; margin-bottom: 22px; }
+
+    .cart-container { grid-template-columns: 1fr; gap: 18px; }
+
+    .cart-item {
+        flex-direction: column;
+        padding: 14px;
+        gap: 12px;
+    }
+
+    .cart-item img          { width: 100%; height: 150px; }
+    .quantity-control button { width: 28px; height: 28px; }
+    .cart-summary            { padding: 18px; }
+    .checkout-btn            { padding: 12px; font-size: 14px; }
+
+    /* ── ORDERS ── */
+    .order-section       { padding: 90px 5% 55px; }
+    .order-container h1  { font-size: 20px; }
+    .table-wrapper       { overflow-x: auto; }
+
+    .order-table th,
+    .order-table td { padding: 8px 4px; font-size: 12px; }
+
+    .download-btn { padding: 6px 10px; font-size: 11px; }
+
+    /* ── DASHBOARD ── */
+    .table-container { width: 98%; padding: 14px; margin: 18px auto; }
+    table  { font-size: 12px; }
+    th, td { padding: 9px 4px; }
+    .item-images img { width: 48px; height: 38px; }
+    h1 { font-size: 20px; padding: 14px; }
+
+    /* ── LOGIN ── */
+    .login-shell { padding: 14px; }
+    .login-card  { width: 100%; min-height: auto; }
+    .login-main  { flex-direction: column-reverse; }
+
+    .login-left,
+    .login-right { flex: 1; padding: 26px 16px; }
+
+    .login-left h2  { font-size: 19px; }
+    .login-right h1 { font-size: 20px; }
+    .login-right p  { max-width: 100%; }
+
+    /* ── PROFILE ── */
+    .profile-wrapper { padding: 90px 5% 45px; }
+
+    .profile-container {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .profile-sidebar,
+    .profile-main { padding: 18px; }
+
+    .form-group label { font-size: 13px; }
+
+    .form-group input,
+    .form-group select { padding: 8px; font-size: 13px; }
+
+    /* ── ABOUT / CONTACT ── */
+    .about-content { padding: 90px 5% 45px; }
+
+    .about-section {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .about-section h2 { font-size: 20px; }
+    .about-section p  { font-size: 14px; }
+
+    /* ── ADMIN ── */
+    .admin-menu-panel { width: 95%; padding: 18px; }
+    .admin-menu-panel h2 { font-size: 17px; }
+}
+
+
+/* ================================================ */
+/* SMALL MOBILE — 480px                             */
+/* ================================================ */
+
+@media (max-width: 480px) {
+
+    .logo h2 { display: none; }
+
+    header, header.scrolled { height: 58px; }
+
+    .nav-links {
+        top: 58px;
+        height: calc(100vh - 58px);
+    }
+
+    .logo img { width: 36px; height: 36px; padding: 3px; }
+
+    /* HERO */
+    .hero-full { min-height: 100svh; padding: 58px 5% 40px; }
+    .hero-content h1 { font-size: 26px; }
+    .hero-content p  { font-size: 13px; }
+
+    .hero-form input,
+    .hero-form button { font-size: 13px; padding: 10px 12px; }
+
+    .btn { font-size: 13px; padding: 10px 20px; }
+
+    .discount { width: 90px; height: 90px; }
+    .discount h2 { font-size: 17px; }
+
+    /* SPECIALS */
+    .special-grid { grid-template-columns: 1fr; gap: 12px; }
+    .card img     { height: 130px; }
+
+    /* MENU */
+    .menu-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .menu-card img { height: 110px; }
+
+    /* CART */
+    .cart-item img { width: 75px; height: 65px; }
+}
+
+
+/* ================================================ */
+/* EXTRA SMALL — 360px                              */
+/* ================================================ */
+
+@media (max-width: 360px) {
+
+    header, header.scrolled { height: 54px; }
+
+    .nav-links { top: 54px; height: calc(100vh - 54px); }
+
+    .hero-content h1 { font-size: 22px; }
+    .menu-container  { grid-template-columns: 1fr; }
+}

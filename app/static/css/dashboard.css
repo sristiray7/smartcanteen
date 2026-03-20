@@ -149,6 +149,151 @@ tr:hover {
 }
 
 /* ========================= */
+/* RESPONSIVE DESIGN - DASHBOARD */
+/* ========================= */
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 24px;
+        padding: 15px;
+    }
+
+    .table-container {
+        width: 98%;
+        padding: 15px;
+        margin: 20px auto;
+        overflow-x: auto;
+    }
+
+    table {
+        font-size: 12px;
+    }
+
+    th, td {
+        padding: 10px 5px;
+    }
+
+    th {
+        font-size: 12px;
+    }
+
+    .item-images img {
+        width: 50px;
+        height: 40px;
+        margin: 3px;
+    }
+
+    .status {
+        padding: 4px 10px;
+        font-size: 11px;
+    }
+
+    .payment-cash,
+    .payment-online {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 18px;
+        padding: 12px;
+        text-align: center;
+    }
+
+    .table-container {
+        width: 98%;
+        padding: 10px;
+        margin: 15px auto;
+        border-radius: 12px;
+        overflow-x: auto;
+    }
+
+    table {
+        font-size: 10px;
+        width: 100%;
+        display: block;
+        overflow-x: auto;
+    }
+
+    th, td {
+        padding: 8px 3px;
+    }
+
+    th {
+        font-size: 11px;
+        font-weight: 600;
+    }
+
+    tbody tr {
+        display: block;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        background: rgba(212,175,55,0.05);
+    }
+
+    tbody td {
+        display: block;
+        text-align: right;
+        padding: 6px 3px;
+        border: none;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    tbody td:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        color: #d4af37;
+    }
+
+    .item-images img {
+        width: 40px;
+        height: 32px;
+        margin: 2px;
+    }
+
+    .item-images img:hover {
+        transform: scale(1.05);
+    }
+
+    .status {
+        padding: 3px 8px;
+        font-size: 10px;
+    }
+
+    .payment-cash,
+    .payment-online {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 320px) {
+    h1 {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    .table-container {
+        padding: 8px;
+        margin: 10px auto;
+    }
+
+    table {
+        font-size: 9px;
+    }
+
+    th, td {
+        padding: 6px 2px;
+    }
+
+    .item-images img {
+        width: 35px;
+        height: 28px;
+    }
+}
+
+/* ========================= */
 /* RESPONSIVE */
 /* ========================= */
 

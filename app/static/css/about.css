@@ -130,6 +130,87 @@ body {
     box-shadow: 0 15px 40px rgba(0,0,0,0.4);
 }
 
+/* ========================= */
+/* RESPONSIVE - ABOUT PAGE */
+/* ========================= */
+
+@media (max-width: 768px) {
+    .about-hero {
+        height: 50vh;
+    }
+
+    .about-hero h1 {
+        font-size: 36px;
+    }
+
+    .about-hero p {
+        font-size: 16px;
+    }
+
+    .about-content {
+        padding: 80px 5% 50px;
+    }
+
+    .mission-section h2 {
+        font-size: 28px;
+    }
+
+    .mission-cards {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 20px;
+    }
+
+    .mission-card {
+        padding: 20px;
+        border-radius: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .about-hero {
+        height: 40vh;
+    }
+
+    .about-hero h1 {
+        font-size: 22px;
+    }
+
+    .about-hero p {
+        font-size: 13px;
+    }
+
+    .about-content {
+        padding: 70px 3% 40px;
+    }
+
+    .mission-section h2 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+
+    .mission-section p {
+        font-size: 12px;
+        margin-bottom: 30px;
+    }
+
+    .mission-cards {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .mission-card {
+        padding: 15px;
+    }
+
+    .mission-card h3 {
+        font-size: 14px;
+    }
+
+    .mission-card p {
+        font-size: 12px;
+    }
+}
+
 .mission-card h3 {
     color: #d4af37;
     margin-bottom: 15px;

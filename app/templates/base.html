@@ -7,59 +7,81 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
     {% block extra_css %}{% endblock %}
 </head>
 
 <body>
 
 <header>
-    <div class="container">
-        <nav>
-            <div class="logo">
-                <a href="/">
-                    <img src="{{ url_for('static', filename='assets/icons/logo.png') }}" 
-                         alt="The Crown of Creation Logo">
-                </a>
-                <h2>The Crown of Creation</h2>
-            </div>
+    <nav>
+        <div class="nav-container">
 
-            <ul>
+            <!-- LOGO -->
+            <a href="/" class="logo">
+                <img src="{{ url_for('static', filename='assets/icons/logo.png') }}"
+                     alt="The Crown of Creation Logo">
+                <h2>The Crown of Creation</h2>
+            </a>
+
+            <!-- NAV LINKS — direct child of nav-container, targeted by .nav-container > ul -->
+            <ul class="nav-links">
                 <li><a href="/">Home</a></li>
-                 <li><a href="{{ url_for('about') }}">About Us</a></li>
+                <li><a href="{{ url_for('about') }}">About Us</a></li>
                 <li><a href="{{ url_for('menu') }}">Menu</a></li>
                 <li><a href="{{ url_for('contact') }}">Contact</a></li>
-                {% if session.get("admin_logged_in")%}
+                {% if session.get("admin_logged_in") %}
                 <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
                 {% endif %}
-                {% if session.get('logged_in') %}
-                <li><a href="{{ url_for('my_profile') }}" class="profile-icon">
-                   <i class="fa-solid fa-user"></i>
-                     </a></li>
-                     {% endif %}
-                <li><a href="{{url_for('notification')}}">Notifications</a></li>
+                <li><a href="{{ url_for('notification') }}">Notifications</a></li>
                 <li><a href="{{ url_for('my_order_page') }}">My Order</a></li>
-              
-               <li class="login-dropdown"><a href="#" id="loginToggle"><span class="nav-icon">👤</span> Login</a>
 
-    <div class="dropdown-menu">
-        <div class="dropdown-header">
-            <span>New customer?</span>
-            <a href="{{ url_for('login') }}">Sign Up</a>
-        </div>
-
-        <ul>
-            <li><a href="{{url_for('my_profile')}}">My Profile</a></li>
-            <li><a href="{{ url_for('mycart') }}">My Cart</a></li>
-            <li><a href="{{ url_for('wishlist') }}">Wishlist</a></li>
-            <li><a href="{{ url_for('rewards') }}">Rewards</a></li>
-            
-            <li><a href="{{ url_for('customer_care') }}">24x7 Customer Care</a></li>
-        </ul>
-    </div>
-</li>
+                <!-- LOGIN / PROFILE DROPDOWN -->
+                <li class="login-dropdown">
+                    {% if session.get('logged_in') %}
+                        <a href="#" id="profileToggle">
+                            <span class="nav-icon">👤</span>
+                        </a>
+                        <div class="dropdown-menu">
+                            <ul>
+                                <li><a href="{{ url_for('my_profile') }}">My Profile</a></li>
+                                <li><a href="{{ url_for('mycart') }}">My Cart</a></li>
+                                <li><a href="{{ url_for('wishlist') }}">Wishlist</a></li>
+                                <li><a href="{{ url_for('rewards') }}">Rewards</a></li>
+                                <li><a href="{{ url_for('customer_care') }}">24x7 Customer Care</a></li>
+                                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                            </ul>
+                        </div>
+                    {% else %}
+                        <a href="#" id="loginToggle">
+                            <span class="nav-icon">👤</span> Login
+                        </a>
+                        <div class="dropdown-menu">
+                            <div class="dropdown-header">
+                                <span>New customer?</span>
+                                <a href="{{ url_for('login') }}">Sign Up</a>
+                            </div>
+                            <ul>
+                                <li><a href="{{ url_for('login') }}">My Profile</a></li>
+                                <li><a href="{{ url_for('login') }}">My Cart</a></li>
+                                <li><a href="{{ url_for('login') }}">Wishlist</a></li>
+                                <li><a href="{{ url_for('login') }}">Rewards</a></li>
+                                <li><a href="{{ url_for('customer_care') }}">24x7 Customer Care</a></li>
+                            </ul>
+                        </div>
+                    {% endif %}
+                </li>
             </ul>
-        </nav>
-    </div>
+
+            <!-- HAMBURGER -->
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+        </div>
+    </nav>
 </header>
 
 {% block content %}{% endblock %}
@@ -68,12 +90,7 @@
     <p>© 2026 The Crown of Creation | All Rights Reserved</p>
 </footer>
 
-<script>
-window.addEventListener("scroll", function() {
-    const header = document.querySelector("header");
-    header.classList.toggle("scrolled", window.scrollY > 50);
-});
-</script>
+<!-- Single script at end of body; scroll handler lives in navbar.js -->
 {% block extra_js %}{% endblock %}
 <script src="{{ url_for('static', filename='js/navbar.js') }}"></script>
 

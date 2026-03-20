@@ -147,6 +147,183 @@ body {
     transition: 0.3s ease;
 }
 
+/* ========================= */
+/* RESPONSIVE DESIGN - PROFILE PAGE */
+/* ========================= */
+
+@media (max-width: 768px) {
+    .profile-section {
+        padding: 100px 5% 50px;
+    }
+
+    .profile-container h1 {
+        font-size: 28px;
+    }
+
+    .profile-card {
+        gap: 20px;
+        padding: 20px;
+        flex-direction: column;
+        margin-bottom: 40px;
+    }
+
+    .profile-left,
+    .profile-right {
+        flex: 1;
+    }
+
+    .profile-avatar img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .profile-right label {
+        font-size: 13px;
+        margin-top: 12px;
+    }
+
+    .profile-right input,
+    .profile-right textarea {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .save-btn {
+        padding: 10px;
+        font-size: 14px;
+        margin-top: 15px;
+    }
+
+    .profile-summary {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+    }
+
+    .summary-card {
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    .subtitle {
+        margin-bottom: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-section {
+        padding: 80px 3% 40px;
+    }
+
+    .profile-container h1 {
+        font-size: 20px;
+    }
+
+    .subtitle {
+        font-size: 12px;
+        margin-bottom: 20px;
+    }
+
+    .profile-card {
+        gap: 15px;
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    .profile-left {
+        text-align: center;
+    }
+
+    .profile-avatar img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .profile-left h2 {
+        font-size: 14px;
+        margin-top: 10px;
+    }
+
+    .member-tag {
+        font-size: 12px;
+    }
+
+    .profile-right label {
+        font-size: 12px;
+        margin-top: 10px;
+        margin-bottom: 4px;
+    }
+
+    .profile-right input,
+    .profile-right textarea {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .save-btn {
+        padding: 9px;
+        font-size: 13px;
+        margin-top: 12px;
+        border-radius: 25px;
+    }
+
+    .save-btn:hover {
+        transform: translateY(-2px);
+    }
+
+    .profile-summary {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 30px;
+    }
+
+    .summary-card {
+        padding: 15px;
+        border-radius: 12px;
+    }
+
+    .summary-card h3 {
+        font-size: 14px;
+    }
+
+    .summary-card p {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 320px) {
+    .profile-section {
+        padding: 70px 2% 35px;
+    }
+
+    .profile-container h1 {
+        font-size: 16px;
+    }
+
+    .profile-card {
+        padding: 12px;
+    }
+
+    .profile-avatar img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .profile-right input,
+    .profile-right textarea {
+        padding: 6px 8px;
+        font-size: 11px;
+    }
+
+    .save-btn {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .summary-card {
+        padding: 12px;
+    }
+}
+
 .summary-card h3 {
     font-size: 32px;
     color: #d4af37;

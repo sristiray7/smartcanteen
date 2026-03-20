@@ -42,24 +42,27 @@
             <h2 id="loginTitle">Hello Admin!</h2>
             <p id="loginSubtitle">Log in to your administrative account</p>
 
-            <form method="POST" autocomplete="on">
+            <form method="POST" autocomplete="on" id="loginForm">
 
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="role" id="role" value="admin">
 
-               <label id="loginLabel" for="loginInput">Email</label>
+                <!-- Dynamic Login Field -->
+                <label id="loginLabel" for="loginInput">Email</label>
 
-                     <input
-                     type="email"
-                     name="email"
-                     placeholder="Enter your email"
-                     required
-                     id="loginInput"
-                        >
+                <input
+                    type="email"
+                    id="loginInput"
+                    name="admin_email"
+                    placeholder="Enter admin email"
+                    required
+                >
 
-                <label id="passwordLabel" for="loginPassword">Password</label>
+                <!-- Password -->
+                <label for="loginPassword">Password</label>
 
                 <div class="password-wrapper">
+
                     <input
                         id="loginPassword"
                         type="password"
@@ -74,6 +77,7 @@
                         onclick="togglePassword(event)">
                         Show
                     </button>
+
                 </div>
 
                 <button type="submit" class="login-submit">
@@ -82,9 +86,60 @@
 
             </form>
 
-            <button type="button" class="signup-submit">
+            <!-- SIGN UP Button - Only visible when not logged in -->
+            {% if not session.get('logged_in') %}
+            <button type="button" class="signup-submit" onclick="toggleSignupForm()">
                 SIGN UP
             </button>
+            {% endif %}
+            
+            <!-- SIGNUP FORM - Hidden by default -->
+            <form method="POST" action="{{ url_for('signup') }}" autocomplete="on" id="signupForm" style="display: none;">
+
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <!-- Mobile -->
+                <label for="signupMobile">Mobile Number</label>
+
+                <input
+                    type="text"
+                    id="signupMobile"
+                    name="mobile"
+                    placeholder="Enter your mobile number"
+                    required
+                >
+
+                <!-- Password -->
+                <label for="signupPassword">Password</label>
+
+                <div class="password-wrapper">
+
+                    <input
+                        id="signupPassword"
+                        type="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                    <button
+                        type="button"
+                        class="password-toggle"
+                        onclick="togglePassword(event)">
+                        Show
+                    </button>
+
+                </div>
+
+                <button type="submit" class="login-submit">
+                    CREATE ACCOUNT
+                </button>
+
+                <button type="button" class="signup-cancel" onclick="toggleSignupForm()">
+                    BACK TO LOGIN
+                </button>
+
+            </form>
 
         </div>
 
@@ -113,5 +168,78 @@
 {% endblock %}
 
 {% block extra_js %}
-<script src="{{ url_for('static', filename='js/login.js') }}"></script>
+
+<script>
+
+function switchRole(role, btn){
+
+    const roleInput = document.getElementById("role");
+    roleInput.value = role;
+
+    const input = document.getElementById("loginInput");
+    const label = document.getElementById("loginLabel");
+    const title = document.getElementById("loginTitle");
+    const subtitle = document.getElementById("loginSubtitle");
+    const buttons = document.querySelectorAll(".switch-btn");
+
+    // Update active button styling
+    buttons.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    // Clear the input field when switching roles
+    input.value = "";
+
+    if(role === "admin"){
+        // Change input name and type for admin
+        input.name = "admin_email";
+        input.type = "email";
+        input.placeholder = "Enter admin email";
+        label.innerText = "Email";
+
+        title.innerText = "Hello Admin!";
+        subtitle.innerText = "Log in to your administrative account";
+
+    } else {
+        // Change input name and type for user
+        input.name = "user_mobile";
+        input.type = "text";
+        input.placeholder = "Enter your mobile number";
+        label.innerText = "Mobile Number";
+
+        title.innerText = "Hello User!";
+        subtitle.innerText = "Log in to your account";
+    }
+}
+
+/* Password toggle */
+function togglePassword(event){
+    const passwordInput = event.target.closest('.password-wrapper').querySelector('input');
+
+    if(passwordInput.type === "password"){
+        passwordInput.type = "text";
+        event.target.innerText = "Hide";
+    }else{
+        passwordInput.type = "password";
+        event.target.innerText = "Show";
+    }
+}
+
+/* Toggle between login and signup forms */
+function toggleSignupForm() {
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
+    const signupButton = document.querySelector(".signup-submit");
+    
+    if (loginForm.style.display === "none") {
+        loginForm.style.display = "block";
+        signupForm.style.display = "none";
+        if (signupButton) signupButton.style.display = "block";
+    } else {
+        loginForm.style.display = "none";
+        signupForm.style.display = "block";
+        if (signupButton) signupButton.style.display = "none";
+    }
+}
+
+</script>
 {% endblock %}

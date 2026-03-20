@@ -12,52 +12,38 @@
 
     <h1 class="cart-title">My Cart</h1>
 
+    {% if cart_items %}
+
     <div class="cart-container">
 
         <!-- Cart Items -->
-        <div class="cart-items">
+        <div class="cart-items" id="cartItemsWrapper">
 
-            <div class="cart-item">
-                <img src="{{ url_for('static', filename='assets/images/veg pizza.jpg') }}" alt="Veg Pizza">
+            {% for item in cart_items %}
+            <div class="cart-item" id="cart-item-{{ item.id }}" data-price="{{ item.price }}">
+
+                <img src="{{ url_for('static', filename='assets/images/menu_items/' + item.image_filename) if item.image_filename else url_for('static', filename='assets/images/placeholder.jpg') }}"
+                     alt="{{ item.name }}">
 
                 <div class="item-details">
-                    <h3>Veg Pizza</h3>
-                    <p>₹200</p>
+                    <h3>{{ item.name }}</h3>
+                    <p>₹{{ item.price }}</p>
 
                     <div class="quantity-control">
-                        <button>-</button>
-                        <span>1</span>
-                        <button>+</button>
+                        <button onclick="updateQty({{ item.id }}, -1)">-</button>
+                        <span id="qty-{{ item.id }}">{{ item.quantity }}</span>
+                        <button onclick="updateQty({{ item.id }}, 1)">+</button>
                     </div>
                 </div>
 
-                <div class="item-total">
-                    ₹200
+                <div class="item-total" id="total-{{ item.id }}">
+                    ₹{{ item.subtotal }}
                 </div>
 
-                <button class="remove-btn">✖</button>
+                <button class="remove-btn" onclick="removeItem({{ item.id }})">✖</button>
+
             </div>
-
-            <div class="cart-item">
-                <img src="{{ url_for('static', filename='assets/images/Cold Coffee.jpg') }}" alt="Cold Coffee">
-
-                <div class="item-details">
-                    <h3>Cold Coffee</h3>
-                    <p>₹100</p>
-
-                    <div class="quantity-control">
-                        <button>-</button>
-                        <span>2</span>
-                        <button>+</button>
-                    </div>
-                </div>
-
-                <div class="item-total">
-                    ₹200
-                </div>
-
-                <button class="remove-btn">✖</button>
-            </div>
+            {% endfor %}
 
         </div>
 
@@ -67,17 +53,17 @@
 
             <div class="summary-row">
                 <span>Subtotal</span>
-                <span>₹400</span>
+                <span id="summary-subtotal">₹{{ subtotal }}</span>
             </div>
 
             <div class="summary-row">
                 <span>Delivery</span>
-                <span>₹40</span>
+                <span>₹{{ delivery }}</span>
             </div>
 
             <div class="summary-row total">
                 <span>Total</span>
-                <span>₹440</span>
+                <span id="summary-total">₹{{ total }}</span>
             </div>
 
             <button class="checkout-btn">Proceed to Checkout</button>
@@ -85,6 +71,77 @@
 
     </div>
 
+    {% else %}
+
+    <!-- Empty Cart -->
+    <div class="empty-cart" style="text-align:center; padding: 80px 20px;">
+        <h2 style="font-size:28px; margin-bottom:12px;">Your Cart is Empty</h2>
+        <p style="color:#777; margin-bottom:24px;">Add something delicious from our menu 👑</p>
+        <a href="{{ url_for('menu') }}" class="checkout-btn" style="display:inline-block; text-decoration:none;">
+            Explore Menu
+        </a>
+    </div>
+
+    {% endif %}
+
 </section>
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+async function updateQty(itemId, delta) {
+    const qtyEl    = document.getElementById('qty-' + itemId);
+    const totalEl  = document.getElementById('total-' + itemId);
+    const itemEl   = document.getElementById('cart-item-' + itemId);
+    const price    = parseFloat(itemEl.dataset.price);
+
+    let newQty = parseInt(qtyEl.textContent) + delta;
+    if (newQty < 0) return;
+
+    const res  = await fetch(`/cart/update/${itemId}`, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ quantity: newQty })
+    });
+    const data = await res.json();
+
+    if (data.success) {
+        if (newQty === 0) {
+            itemEl.remove();
+        } else {
+            qtyEl.textContent   = newQty;
+            totalEl.textContent = '₹' + (price * newQty);
+        }
+        recalcSummary();
+    }
+}
+
+async function removeItem(itemId) {
+    const res  = await fetch(`/cart/remove/${itemId}`, { method: 'POST' });
+    const data = await res.json();
+    if (data.success) {
+        document.getElementById('cart-item-' + itemId).remove();
+        recalcSummary();
+    }
+}
+
+function recalcSummary() {
+    let subtotal = 0;
+    document.querySelectorAll('.cart-item').forEach(el => {
+        const price = parseFloat(el.dataset.price);
+        const qty   = parseInt(el.querySelector('[id^="qty-"]').textContent);
+        subtotal   += price * qty;
+    });
+    const delivery = subtotal > 0 ? 40 : 0;
+    document.getElementById('summary-subtotal').textContent = '₹' + subtotal;
+    document.getElementById('summary-total').textContent    = '₹' + (subtotal + delivery);
+
+    if (subtotal === 0) {
+        document.querySelector('.cart-container').innerHTML =
+            '<div style="text-align:center;padding:60px 20px;"><h2>Your Cart is Empty</h2>' +
+            '<a href="/menu" style="color:#d4af37;">Explore Menu →</a></div>';
+    }
+}
+</script>
 {% endblock %}

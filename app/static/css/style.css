@@ -1,203 +1,389 @@
 /* ========================= */
+/* CSS VARIABLES */
+/* ========================= */
+
+:root {
+    --brand-dark:    #3b001f;
+    --brand-deep:    #6b012f;
+    --brand-mid:     rgba(106, 9, 9, 0.705);
+    --gold:          #d4af37;
+    --gold-light:    #f4c430;
+    --gold-glow:     rgba(212, 175, 55, 0.4);
+    --accent-orange: #f4a261;
+    --accent-pink:   #b4179c;
+    --accent-pink-d: #8d0e75;
+    --text-light:    #f5f5f5;
+    --text-muted:    #f0f0f0;
+    --bg-page:       #f4f4f4;
+    --nav-height:    65px;
+    --nav-height-sm: 60px;
+}
+
+
+/* ========================= */
 /* RESET */
 /* ========================= */
 
-* {
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Segoe UI', Arial, sans-serif;
     line-height: 1.6;
-    background: #f4f4f4;
+    background: var(--bg-page);
     color: #333;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
 }
 
 
 /* ========================= */
-/* ROYAL NAVBAR */
+/* NAVBAR */
 /* ========================= */
 
 header {
     position: fixed;
-    top: 0px;              /* change from 20px to 0 */
+    top: 0;
+    left: 0;
     width: 100%;
     z-index: 1000;
-
-    height: 60px;
-    display: flex;
-    align-items: center;
-
-    /* Make background transparent */
-    background: rgba(106, 9, 9, 0.705);
-
-    /* Blur effect */
+    height: var(--nav-height);
+    background: var(--brand-mid);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-
     border-bottom: 1px solid rgba(168, 39, 62, 0.25);
     box-shadow: 0 5px 20px rgba(125, 63, 63, 0.4);
-    transition: all 0.3s ease;
+    transition: background 0.3s ease;
+    /* overflow: visible so dropdown menu can escape the header bounds */
+    overflow: visible;
 }
-/* Navbar Shrink on Scroll */
+
 header.scrolled {
-    height: 65px;
-    background: rgba(40,0,20,0.95);
+    background: rgba(40, 0, 20, 0.95);
     backdrop-filter: blur(6px);
 }
 
-.container {
-    width: 85%;
-    margin: auto;
-}
-
+/* nav fills full header height */
 nav {
     width: 100%;
+    height: 100%;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    padding: 0 24px;
 }
 
-/* LOGO SECTION */
+/* Single flex row: logo | links | hamburger */
+.nav-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    /* Clip desktop overflow but allow dropdown to escape via z-index */
+    overflow: visible;
+}
+
+
+/* ---- LOGO ---- */
+
 .logo {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
+    text-decoration: none;
+    /* Fixed width so links always have predictable remaining space */
+    flex: 0 0 auto;
+    white-space: nowrap;
 }
 
 .logo img {
-    width: 55px;
-    height: 55px;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
     border-radius: 50%;
-    border: 2px solid gold;
-    padding: 6px;
-    background: radial-gradient(circle, #6b012f, #3b001f);
-    box-shadow: 0 0 15px rgba(255,215,0,0.5);
-    transition: 0.3s ease;
+    border: 2px solid var(--gold);
+    padding: 5px;
+    background: radial-gradient(circle, var(--brand-deep), var(--brand-dark));
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
 }
 
 header.scrolled .logo img {
-    width: 45px;
-    height: 45px;
+    width: 38px;
+    height: 38px;
 }
 
 .logo h2 {
-    font-size: 22px;
+    font-size: 16px;
     font-weight: 600;
     color: #fff;
-    letter-spacing: 1px;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
 }
 
-/* MENU LINKS */
-nav > ul {
-    list-style: none;
+
+/* ---- NAV LINKS (desktop) ---- */
+
+.nav-links {
+    /* Take up remaining space between logo and hamburger */
+    flex: 1 1 auto;
     display: flex;
-    gap: 35px;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    gap: 0;
+    list-style: none;
+    min-width: 0;
+    /* overflow intentionally NOT set here — desktop header clips it,
+       mobile needs overflow-y:auto for scrolling the open menu */
 }
 
-nav ul li a {
-    text-decoration: none;
-    color: #f5f5f5;
-    font-size: 16px;
+.nav-links > li {
+    flex-shrink: 0;
+}
+
+.nav-links > li > a {
+    color: var(--text-light);
+    font-size: 13px;
     font-weight: 500;
-    transition: 0.3s ease;
+    white-space: nowrap;
+    padding: 6px 9px;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.25s ease;
+}
+
+.nav-links > li > a::after {
+    content: "";
+    position: absolute;
+    left: 9px;
+    bottom: 0px;
+    width: calc(100% - 18px);
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.25s ease;
+}
+
+.nav-links > li > a:hover {
+    color: var(--gold);
+}
+
+.nav-links > li > a:hover::after {
+    transform: scaleX(1);
+}
+
+
+/* ---- NAV ICON ---- */
+
+.nav-icon {
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 6px 8px;
+    border-radius: 50%;
+    transition: background 0.3s, color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-icon:hover {
+    background: var(--gold);
+    color: #000;
+}
+
+
+/* ---- LOGIN DROPDOWN ---- */
+
+.login-dropdown {
     position: relative;
 }
 
-/* GOLD HOVER UNDERLINE */
-nav ul li a::after {
-    content: "";
+.dropdown-menu {
     position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 0%;
+    top: calc(var(--nav-height) - 4px);
+    right: 0;
+    width: 260px;
+    background: #ffffff;
+    color: #333;
+    border-radius: 14px;
+    padding: 8px 0;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    z-index: 1100;
+}
+
+.login-dropdown.active .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    font-weight: 600;
+    font-size: 14px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 6px;
+}
+
+.dropdown-header a {
+    color: #2874f0;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.dropdown-menu ul li a {
+    display: block;
+    padding: 11px 22px;
+    color: #333;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s ease;
+}
+
+.dropdown-menu ul li a:hover {
+    background: #f5f5f5;
+    color: #000;
+}
+
+/* Remove underline pseudo-element from dropdown items */
+.dropdown-menu ul li a::after,
+.login-dropdown .dropdown-menu a::after {
+    display: none !important;
+}
+
+
+/* ---- HAMBURGER TOGGLE ---- */
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    cursor: pointer;
+    gap: 5px;
+    z-index: 1002;
+    padding: 8px;
+    border: none;
+    background: none;
+    flex-shrink: 0;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 22px;
     height: 2px;
-    background: gold;
-    transition: 0.3s ease;
+    background: #fff;
+    border-radius: 2px;
+    transition: all 0.3s ease;
 }
 
-nav ul li a:hover {
-    color: gold;
+/* Hamburger → X animation */
+.menu-toggle.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
 }
-
-nav ul li a:hover::after {
-    width: 100%;
+.menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+.menu-toggle.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
 }
 
 
 /* ========================= */
-/* FULL BACKGROUND HERO */
+/* HERO */
 /* ========================= */
 
 .hero-full {
     position: relative;
     height: 100vh;
-    
+    min-height: 500px;
     display: flex;
     align-items: center;
-    padding: 0 8%;
+    /* Top padding offsets fixed navbar; content stays vertically centered */
+    padding: var(--nav-height) 8% 0;
     overflow: hidden;
     color: white;
 }
 
-/* Background Image */
 .hero-bg-img {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-     object-position: center bottom;
-
+    object-position: center bottom;
     z-index: 0;
 }
 
-/* Overlay */
 .hero-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(
         90deg,
-        rgba(30,0,10,0.85) 35%,
-        rgba(0,0,0,0.4) 70%
+        rgba(30, 0, 10, 0.88) 35%,
+        rgba(0, 0, 0, 0.35) 75%
     );
     z-index: 1;
 }
 
-/* Content */
 .hero-content {
     position: relative;
-    max-width: 600px;
+    max-width: 580px;
     z-index: 2;
 }
 
 .hero-content h1 {
-    font-size: 64px;
+    font-size: clamp(36px, 6vw, 64px);
     font-weight: 700;
     line-height: 1.2;
     font-family: 'Playfair Display', serif;
 }
 
 .hero-content h1 span {
-    color: #d4af37;
+    color: var(--gold);
 }
+
 .hero-content p {
-    margin: 20px 0;
-    font-size: 18px;
-    color: #f0f0f0;
+    margin: 18px 0;
+    font-size: clamp(15px, 2vw, 18px);
+    color: var(--text-muted);
 }
 
 
-/* ========================= */
-/* HERO FORM */
-/* ========================= */
+/* ---- Hero Form ---- */
 
 .hero-form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
     margin-top: 20px;
 }
 
@@ -206,99 +392,166 @@ nav ul li a:hover::after {
     border-radius: 8px;
     border: none;
     outline: none;
+    font-size: 15px;
 }
 
 .hero-form button {
-    background: linear-gradient(90deg, #b4179c, #8d0e75);
+    background: linear-gradient(90deg, var(--accent-pink), var(--accent-pink-d));
     color: white;
     padding: 12px;
     border-radius: 8px;
     border: none;
     cursor: pointer;
-    transition: 0.3s ease;
+    font-size: 15px;
+    font-weight: 600;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .hero-form button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .info-btn {
-    text-decoration: none;
-    color: #f4a261;
+    color: var(--accent-orange);
     font-weight: bold;
     margin-top: 5px;
+    display: inline-block;
 }
-/* ========================= */
-/* HERO BUTTONS */
-/* ========================= */
+
+
+/* ---- Hero Buttons ---- */
 
 .hero-buttons {
-    margin-top: 30px;
+    margin-top: 28px;
     display: flex;
-    gap: 20px;
+    flex-wrap: wrap;
+    gap: 16px;
 }
 
 .btn {
-    padding: 14px 28px;
+    padding: 13px 26px;
     border-radius: 30px;
-    text-decoration: none;
     font-weight: 600;
-    transition: 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: inline-block;
 }
 
 .btn-gold {
-    background: linear-gradient(90deg, #d4af37, #f4c430);
+    background: linear-gradient(90deg, var(--gold), var(--gold-light));
     color: #000;
 }
 
 .btn-gold:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(212,175,55,0.4);
+    box-shadow: 0 8px 20px var(--gold-glow);
 }
 
 .btn-dark {
-    background: #3b001f;
+    background: var(--brand-dark);
     color: white;
 }
 
 .btn-dark:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 
-/* ========================= */
-/* DISCOUNT BADGE */
-/* ========================= */
+/* ---- Discount Badge ---- */
 
 .discount {
-    margin-top: 35px;
-    width: 140px;
-    height: 140px;
+    margin-top: 32px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    background: rgba(244,162,97,0.9);
+    background: rgba(244, 162, 97, 0.92);
     backdrop-filter: blur(10px);
-
-    color: black;
+    color: #000;
     font-weight: bold;
-
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    transition: 0.3s ease;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
 }
 
 .discount:hover {
-    transform: scale(1.05);
+    transform: scale(1.06);
 }
 
 .discount h2 {
-    font-size: 28px;
+    font-size: 26px;
+    line-height: 1.1;
+}
+
+
+/* ========================= */
+/* SPECIALS SECTION */
+/* ========================= */
+
+.specials {
+    background: var(--brand-dark);
+    padding: 80px 8%;
+    text-align: center;
+    color: white;
+}
+
+.specials h2 {
+    font-size: clamp(28px, 4vw, 40px);
+    margin-bottom: 50px;
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+}
+
+.special-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 28px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card h3 {
+    padding: 14px 15px 10px;
+    color: var(--brand-dark);
+    font-size: 17px;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+}
+
+.card button {
+    margin: 0 0 18px;
+    padding: 10px 22px;
+    border: none;
+    border-radius: 20px;
+    background: var(--brand-dark);
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.card button:hover {
+    background: var(--gold);
+    color: #000;
 }
 
 
@@ -310,159 +563,205 @@ footer {
     background: #111;
     color: white;
     text-align: center;
-    padding: 20px 0;
+    padding: 22px 20px;
+    font-size: 14px;
 }
 
 
 /* ========================= */
-/* RESPONSIVE */
+/* DESKTOP SHRINK — nav stays inline, just tighter
 /* ========================= */
+
+@media (max-width: 1300px) {
+    .logo h2         { font-size: 15px; }
+    .nav-links > li > a { font-size: 12.5px; padding: 6px 7px; }
+}
+
+@media (max-width: 1100px) {
+    .logo h2         { font-size: 14px; }
+    .nav-links > li > a { font-size: 12px; padding: 6px 5px; }
+}
 
 @media (max-width: 900px) {
+    .logo h2         { font-size: 13px; }
+    .nav-links > li > a { font-size: 11px; padding: 6px 4px; }
+}
 
-    nav>ul {
+
+/* ========================= */
+/* MOBILE ≤ 768px
+   Hide nav links, show hamburger.
+   Clicking hamburger opens a dropdown panel below the header.
+/* ========================= */
+
+@media (max-width: 768px) {
+
+    /* Show the 3-dot / hamburger button */
+    .menu-toggle {
+        display: flex;
+    }
+
+    /* Hide nav links by default — dropdown panel */
+    .nav-links {
+        display: none;          /* hidden until .open */
+        position: fixed;
+        top: var(--nav-height);
+        left: 0;
+        width: 100%;
         flex-direction: column;
-        gap: 10px;
+        align-items: stretch;
+        background: rgba(25, 0, 12, 0.98);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-top: 1px solid rgba(212, 175, 55, 0.2);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+        z-index: 998;
+        overflow-y: auto;
+        max-height: calc(100vh - var(--nav-height));
+        /* Drop-down animation */
+        animation: none;
     }
 
-    .hero-content h1 {
-        font-size: 36px;
+    .nav-links.open {
+        display: flex;
+        animation: dropDown 0.3s ease forwards;
     }
 
+    @keyframes dropDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Each nav item full width */
+    .nav-links > li {
+        width: 100%;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        flex-shrink: 0;
+    }
+
+    .nav-links > li > a {
+        display: flex;
+        align-items: center;
+        padding: 15px 24px;
+        font-size: 15px;
+        font-weight: 500;
+        color: #f0f0f0;
+        width: 100%;
+    }
+
+    .nav-links > li > a::after {
+        display: none;
+    }
+
+    .nav-links > li > a:hover {
+        color: var(--gold);
+        background: rgba(255,255,255,0.05);
+    }
+
+    /* Login dropdown inside mobile panel */
+    .login-dropdown {
+        width: 100%;
+        position: static;
+    }
+
+    /* The profile/login toggle link */
+    .login-dropdown > a {
+        display: flex !important;
+        align-items: center;
+        padding: 15px 24px;
+        font-size: 15px;
+        color: #f0f0f0;
+    }
+
+    /* Override desktop absolute dropdown */
+    .dropdown-menu {
+        position: static !important;
+        width: 100%;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        border-radius: 0;
+        box-shadow: none;
+        background: rgba(255,255,255,0.04);
+        padding: 0;
+        backdrop-filter: none;
+        display: none;
+        transition: none;
+    }
+
+    .login-dropdown.active .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-header {
+        padding: 12px 24px;
+        background: transparent;
+        color: #ccc;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        font-size: 13px;
+    }
+
+    .dropdown-header a {
+        color: var(--gold-light);
+    }
+
+    .dropdown-menu ul li a {
+        padding: 13px 40px;
+        color: #ddd;
+        font-size: 14px;
+        background: transparent;
+        display: block;
+    }
+
+    .dropdown-menu ul li a:hover {
+        color: var(--gold);
+        background: rgba(255,255,255,0.06);
+    }
+
+    /* Hero on mobile */
     .hero-full {
-        padding: 0 5%;
+        padding: 0 6% 60px;
+        align-items: flex-end;
     }
+
+    .hero-overlay {
+        background: linear-gradient(
+            180deg,
+            rgba(30,0,10,0.4) 0%,
+            rgba(30,0,10,0.93) 65%
+        );
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .btn {
+        text-align: center;
+        width: 100%;
+        max-width: 260px;
+    }
+
+    .discount { width: 110px; height: 110px; }
+    .discount h2 { font-size: 22px; }
+
+    .specials { padding: 60px 5%; }
+    .special-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
+    .card img { height: 160px; }
 }
+
+
 /* ========================= */
-/* ROYAL SPECIALS */
-/* ========================= */
-
-.specials {
-    background: #3b001f;
-    padding: 80px 8%;
-    text-align: center;
-    color: white;
-}
-
-.specials h2 {
-    font-size: 40px;
-    margin-bottom: 50px;
-    font-family: 'Playfair Display', serif;
-    color: #d4af37;
-}
-
-.special-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
-}
-
-.card {
-    background: #fff;
-    border-radius: 15px;
-    overflow: hidden;
-    transition: 0.3s ease;
-}
-
-.card img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-}
-
-.card h3 {
-    padding: 15px;
-    color: #3b001f;
-}
-
-
-
-.card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-}
-.card button {
-    margin-bottom: 20px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 20px;
-    background: #3b001f;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s ease;
-}
-
-.card button:hover {
-    background: #d4af37;
-    color: black;
-}
-/* ========================= */
-/* NAVBAR LOGIN DROPDOWN */
+/* SMALL MOBILE ≤ 480px */
 /* ========================= */
 
-.login-dropdown {
-    position: relative;
+@media (max-width: 480px) {
+    .logo h2 { display: none; }
+    .special-grid { grid-template-columns: 1fr; }
+    .hero-form input, .hero-form button { font-size: 14px; }
 }
 
-.dropdown-menu {
-    position: absolute;
-    top: 55px;
-    right: 0;
-    width: 300px;
-    
-
-    background: #ffffff;
-    color: #333;
-
-    border-radius: 15px;
-    padding: 15px 0;
-
-    box-shadow: 0 20px 45px rgba(0,0,0,0.25);
-
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(10px);
-
-    transition: all 0.3s ease;
-    z-index: 1000;
-}
-
-.login-dropdown.active .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-/* Header */
-.dropdown-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 20px 10px;
-    font-weight: 600;
-}
-
-.dropdown-header a {
-    color: #2874f0;
-    text-decoration: none;
-}
-
-/* List */
-.dropdown-menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.dropdown-menu ul li {
-    padding: 10px 20px;
-    transition: background 0.3s ease;
-}
-
-.dropdown-menu ul li a {
-    text-decoration: none;
-    color: #333;
-}
-
-.dropdown-menu ul li:hover {
-    background: #e07878;
+@media (max-width: 380px) {
+    .logo h2 { display: none; }
 }

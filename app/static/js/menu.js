@@ -1,113 +1,169 @@
+// ================================================
+// MENU.JS — filter, cart, wishlist, delete, modal
+// ================================================
+
 document.addEventListener("DOMContentLoaded", function () {
 
-    /* ========================= */
-    /* CATEGORY FILTER */
-    /* ========================= */
+    // ── CATEGORY FILTER ──────────────────────────────────────
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    const cards      = document.querySelectorAll(".menu-card");
 
-    const buttons = document.querySelectorAll(".filter-btn");
-    const cards = document.querySelectorAll(".menu-card");
+    filterBtns.forEach(btn => {
+        btn.addEventListener("click", function () {
+            filterBtns.forEach(b => b.classList.remove("active"));
+            this.classList.add("active");
 
-    buttons.forEach(button => {
-        button.addEventListener("click", () => {
-
-            const category = button.getAttribute("data-category");
-
-            buttons.forEach(btn => btn.classList.remove("active"));
-            button.classList.add("active");
+            const category = this.dataset.category;
 
             cards.forEach(card => {
-                const itemCategory = card.getAttribute("data-category");
-
-                if (category === "all" || itemCategory === category) {
-                    card.style.display = "block";
+                if (category === "all" || card.dataset.category === category) {
+                    card.style.display = "";
                 } else {
                     card.style.display = "none";
                 }
             });
-
         });
     });
 
-    /* ========================= */
-    /* PAYMENT MODAL */
-    /* ========================= */
 
-    const buyButtons = document.querySelectorAll(".buy-btn");
-    const modal = document.getElementById("paymentModal");
-    const closeBtn = document.querySelector(".close-payment");
-    const paymentOptions = document.querySelectorAll(".payment-option");
+    // ── ADD TO CART ──────────────────────────────────────────
+    document.querySelectorAll(".cart-btn").forEach(btn => {
+        btn.addEventListener("click", async function () {
 
-    buyButtons.forEach(button => {
-        button.addEventListener("click", function () {
-            modal.classList.add("active");
-        });
-    });
-
-    if (closeBtn) {
-        closeBtn.addEventListener("click", function () {
-            modal.classList.remove("active");
-        });
-    }
-
-    paymentOptions.forEach(option => {
-        option.addEventListener("click", function () {
-            const method = this.getAttribute("data-method");
-
-            if (method === "cash") {
-                alert("Cash Payment Selected");
-            } else {
-                alert("Online Payment Selected");
+            // Not logged in → go to login
+            if (!isLoggedIn) {
+                window.location.href = loginUrl;
+                return;
             }
 
-            modal.classList.remove("active");
+            const itemId = this.dataset.id;
+            this.disabled = true;
+            this.textContent = "Adding...";
+
+            try {
+                const res  = await fetch(`/cart/add/${itemId}`, { method: "POST" });
+                const data = await res.json();
+
+                if (data.success) {
+                    // Redirect to cart page
+                    window.location.href = cartUrl;
+                } else if (data.redirect) {
+                    window.location.href = data.redirect;
+                }
+            } catch (err) {
+                console.error("Cart error:", err);
+                this.disabled    = false;
+                this.textContent = "Add to Cart";
+            }
         });
     });
 
-});
-/* ========================= */
-/* AUTO ADD HEART ICON */
-/* ========================= */
 
-const cards = document.querySelectorAll(".menu-card");
+    // ── WISHLIST HEART ────────────────────────────────────────
+    document.querySelectorAll(".wishlist-btn").forEach(btn => {
+        btn.addEventListener("click", async function () {
 
-// Load existing wishlist
-let wishlist = JSON.parse(localStorage.getItem("wishlist")) || [];
+            // Not logged in → go to login
+            if (!isLoggedIn) {
+                window.location.href = loginUrl;
+                return;
+            }
 
-cards.forEach(card => {
+            const itemId = this.dataset.id;
+            this.disabled = true;
 
-    // Create heart container
-    const heartWrapper = document.createElement("div");
-    heartWrapper.classList.add("wishlist-icon");
+            try {
+                const res  = await fetch(`/wishlist/toggle/${itemId}`, { method: "POST" });
+                const data = await res.json();
 
-    const heart = document.createElement("span");
-    heart.classList.add("heart");
-    heart.textContent = "♡";
+                if (data.success) {
+                    if (data.added) {
+                        // Item was added to wishlist
+                        this.textContent = "❤️";
+                        this.classList.add("wishlisted");
+                        this.title = "Remove from Wishlist";
+                        // Redirect to wishlist after brief visual feedback
+                        setTimeout(() => {
+                            window.location.href = wishUrl;
+                        }, 300);
+                    } else {
+                        // Item was removed from wishlist (toggled off)
+                        this.textContent = "🤍";
+                        this.classList.remove("wishlisted");
+                        this.title    = "Add to Wishlist";
+                        this.disabled = false;
+                    }
+                } else if (data.redirect) {
+                    window.location.href = data.redirect;
+                }
+            } catch (err) {
+                console.error("Wishlist error:", err);
+                this.disabled = false;
+            }
+        });
+    });
 
-    heartWrapper.appendChild(heart);
-    card.appendChild(heartWrapper);
 
-    const itemName = card.querySelector("h3").textContent;
+    // ── ADMIN DELETE ──────────────────────────────────────────
+    if (isAdmin) {
+        document.querySelectorAll(".delete-btn").forEach(btn => {
+            btn.addEventListener("click", async function () {
+                if (!confirm("Delete this item?")) return;
 
-    // If already saved
-    if (wishlist.includes(itemName)) {
-        heart.classList.add("active");
-        heart.textContent = "♥";
+                const itemId = this.dataset.id;
+
+                try {
+                    const res  = await fetch(`/api/admin/menu/delete/${itemId}`, { method: "DELETE" });
+                    const data = await res.json();
+
+                    if (data.success) {
+                        // Remove card from DOM
+                        this.closest(".menu-card").remove();
+                    } else {
+                        alert("Delete failed: " + (data.error || "Unknown error"));
+                    }
+                } catch (err) {
+                    console.error("Delete error:", err);
+                }
+            });
+        });
     }
 
-    heart.addEventListener("click", function (e) {
-        e.stopPropagation(); // prevent other clicks
 
-        if (wishlist.includes(itemName)) {
-            wishlist = wishlist.filter(item => item !== itemName);
-            heart.classList.remove("active");
-            heart.textContent = "♡";
-        } else {
-            wishlist.push(itemName);
-            heart.classList.add("active");
-            heart.textContent = "♥";
-        }
+    // ── BUY NOW / PAYMENT MODAL ───────────────────────────────
+    const modal        = document.getElementById("paymentModal");
+    const closePayment = document.querySelector(".close-payment");
 
-        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    document.querySelectorAll(".buy-btn").forEach(btn => {
+        btn.addEventListener("click", function () {
+            if (!isLoggedIn) {
+                window.location.href = loginUrl;
+                return;
+            }
+            modal.style.display = "flex";
+        });
     });
+
+    if (closePayment) {
+        closePayment.addEventListener("click", function () {
+            modal.style.display = "none";
+        });
+    }
+
+    document.querySelectorAll(".payment-option").forEach(btn => {
+        btn.addEventListener("click", function () {
+            const method = this.dataset.method;
+            modal.style.display = "none";
+            // TODO: handle payment method (cash / online)
+            alert("Payment method selected: " + method);
+        });
+    });
+
+    // Close modal on outside click
+    if (modal) {
+        modal.addEventListener("click", function (e) {
+            if (e.target === modal) modal.style.display = "none";
+        });
+    }
 
 });
